@@ -1,2 +1,2 @@
-# ShootersClub
-Interactive real world map based online multiplayer arena shooter. 
+# DankSpots
+Interactive real world map based service, that gives locations of views, food spots and even med shops.
