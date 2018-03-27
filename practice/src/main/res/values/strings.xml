@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">mappractice</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="greeting">Welcome to mappractice, please enter in coordiantes to see it on the map</string>
+    <string name="texthint">Marker Name</string>
+    <string name="xhint">x coordinate</string>
+    <string name="yhint">y coordinate</string>
+</resources>
