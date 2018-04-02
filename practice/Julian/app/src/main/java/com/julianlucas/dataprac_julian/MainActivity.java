@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public void acceptButton(View v)
     {
 
+        setContentView(R.layout.activity_markers);
 
     }
 }
