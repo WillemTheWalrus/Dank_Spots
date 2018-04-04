@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/warning"
-        android:layout_width="366dp"
-        android:layout_height="191dp"
+        android:layout_width="316dp"
+        android:layout_height="173dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:text="Welcome to DankSpots! We are NOT liable for anything done while and after using this app, have fun and don't drive high!"
         android:textColor="@android:color/black"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
