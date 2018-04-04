@@ -20,45 +20,52 @@
         android:id="@+id/spots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
         android:text="Spots" />
-
-    <CheckBox
-        android:id="@+id/plugs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Plugs" />
-
-    <CheckBox
-        android:id="@+id/munchies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Munchies" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="72dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spots"
+        android:layout_marginTop="12dp"
         tools:context=".MapsActivity">
 
-
-        <fragment
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.willemthewalrus.mapsui.MapsActivity"
-            tools:layout="@layout/activity_maps">
-
-
-
+            tools:context="com.willemthewalrus.mapsui.MapsActivity" >
         </fragment>
 
 
 
-
     </FrameLayout>
+
+    <CheckBox
+        android:id="@+id/munchies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/spots"
+        android:layout_alignBottom="@+id/spots"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="31dp"
+        android:text="Munchies" />
+
+    <CheckBox
+        android:id="@+id/plugs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/spots"
+        android:layout_alignBottom="@+id/spots"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="19dp"
+        android:onClick="plugFilter"
+        android:text="Plugs" />
 
 </RelativeLayout>

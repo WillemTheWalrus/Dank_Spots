@@ -3,6 +3,7 @@ package com.willemthewalrus.mapsui;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,6 +19,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ArrayList<Marker> mapMarkers = new ArrayList<Marker>();
+    ArrayList<markerObject> markerList = arcataLocations.arcataLocationsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        ArrayList<markerObject> markerList = arcataLocations.arcataLocationsList;
+
         for(int i= 0; i < markerList.size(); i++){
             mapMarkers.add(mMap.addMarker(new MarkerOptions().position(markerList.get(i).getPosition()).title(markerList.get(i).getTitle())));
         }
@@ -60,6 +62,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void plugFilter(View view){
+
+        CheckBox plugs  = findViewById(R.id.plugs);
+        boolean isChecked = plugs.isChecked();
+
+        if(isChecked){
+            for(int i = 0; i < markerList.size(); i++){
+                if(markerList.get(i).getType()==1){
+                    mapMarkers.get(i).setVisible(true);
+                }
+            }
+        }
+        else{
+            for(int i = 0; i < markerList.size(); i++){
+                if(markerList.get(i).getType()==1){
+                    mapMarkers.get(i).setVisible(false);
+                }
+            }
+        }
+
 
     }
 
