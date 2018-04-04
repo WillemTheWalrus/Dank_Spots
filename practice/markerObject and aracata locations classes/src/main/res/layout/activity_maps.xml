@@ -16,6 +16,24 @@
         android:layout_marginTop="11dp"
         android:text="helloo" />
 
+    <CheckBox
+        android:id="@+id/spots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spots" />
+
+    <CheckBox
+        android:id="@+id/plugs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plugs" />
+
+    <CheckBox
+        android:id="@+id/munchies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Munchies" />
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -31,17 +49,16 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/frameLayout"
-            android:layout_centerHorizontal="true"
-            tools:context="com.willemthewalrus.mapsui.MapsActivity">
+            tools:context="com.willemthewalrus.mapsui.MapsActivity"
+            tools:layout="@layout/activity_maps">
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="Button Text" />
+
+
         </fragment>
+
+
+
+
     </FrameLayout>
 
 </RelativeLayout>

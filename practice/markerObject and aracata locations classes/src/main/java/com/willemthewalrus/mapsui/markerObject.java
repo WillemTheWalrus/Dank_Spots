@@ -21,11 +21,11 @@ public class markerObject implements ClusterItem {
      */
     int type;
 
-    public markerObject(String t, String d, LatLng l, int tt){
-        title = t;
-        description = d;
-        location = l;
-        type = tt;
+    public markerObject(String ttitle, String ddescription, LatLng coordinates, int ttype){
+        title = ttitle;
+        description = ddescription;
+        location = coordinates;
+        type = ttype;
 
     }
 
