@@ -1,13 +1,15 @@
 package com.julianlucas.dataprac_julian;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by JulianLucas on 4/2/18.
  */
 
 public class MyItem implements ClusterItem {
     private final LatLng mPosition;
-    private final String mTitle;
-    private final String mSnippet;
+    public String mTitle = " ";
+    public String mSnippet = " ";
 
     public MyItem(double lat, double lng) {
         mPosition = new LatLng(lat, lng);
