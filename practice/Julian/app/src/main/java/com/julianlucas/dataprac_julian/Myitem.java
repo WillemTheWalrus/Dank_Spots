@@ -6,16 +6,16 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by JulianLucas on 4/2/18.
  */
 
-public class MyItem implements ClusterItem {
+public class Myitem implements ClusterItem {
     private final LatLng mPosition;
-    public String mTitle = " ";
-    public String mSnippet = " ";
+    private String mTitle = null;
+    private String mSnippet = null;
 
-    public MyItem(double lat, double lng) {
+    public Myitem(double lat, double lng) {
         mPosition = new LatLng(lat, lng);
     }
 
-    public MyItem(double lat, double lng, String title, String snippet) {
+    public Myitem(double lat, double lng, String title, String snippet) {
         mPosition = new LatLng(lat, lng);
         mTitle = title;
         mSnippet = snippet;
@@ -36,4 +36,4 @@ public class MyItem implements ClusterItem {
         return mSnippet;
     }
 }
-}
+
