@@ -30,9 +30,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
 
-        addDemo("Clustering", ClusterActivity.class);
-
-
         b1 = (Button) findViewById(R.id.login);
         b2 = (Button) findViewById(R.id.accept);
         ed1 = (EditText) findViewById(R.id.username);
@@ -54,20 +51,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    private void addDemo(String demoName, Class<? extends Activity> activityClass) {
-        Button b = new Button(this);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        b.setLayoutParams(layoutParams);
-        b.setText(demoName);
-        b.setTag(activityClass);
-        b.setOnClickListener(this);
-        mListView.addView(b);
-    }
 
     @Override
     public void onClick(View view) {
-        Class activityClass = (Class) view.getTag();
-        startActivity(new Intent(this, activityClass));
+        Intent intent = new Intent(this, ClusteringActivity.class);
+        startActivity(intent);
     }
 }
 
