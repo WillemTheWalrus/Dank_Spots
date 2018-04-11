@@ -25,7 +25,7 @@ public class ClusteringActivity extends BaseActivity {
     @Override
     protected void startMap() {
 
-        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+        getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(40.869402, -124.086886), 10));
 
         mClusterManager = new ClusterManager<MyItem>(this, getMap());
         getMap().setOnCameraIdleListener(mClusterManager);
