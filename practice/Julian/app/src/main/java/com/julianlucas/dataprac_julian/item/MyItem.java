@@ -11,17 +11,20 @@ public class MyItem implements ClusterItem {
     private final LatLng mPosition;
     private String mTitle;
     private String mSnippet;
+    private String mTag;
 
     public MyItem(double lat, double lng) {
         mPosition = new LatLng(lat, lng);
         mTitle = null;
         mSnippet = null;
+        mTag = null;
     }
 
-    public MyItem(double lat, double lng, String title, String snippet) {
+    public MyItem(double lat, double lng, String title, String snippet, String tag) {
         mPosition = new LatLng(lat, lng);
         mTitle = title;
         mSnippet = snippet;
+        mTag = tag;
     }
 
     @Override
@@ -36,6 +39,10 @@ public class MyItem implements ClusterItem {
     @Override
     public String getSnippet() {
         return mSnippet; }
+
+
+    public String addTag() {
+        return mTag; }
 
     /**
      * Set the title of the marker

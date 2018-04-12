@@ -25,6 +25,7 @@ public class ItemReader {
         for (int i = 0; i < array.length(); i++) {
             String title = null;
             String snippet = null;
+            String tag = null;
             JSONObject object = array.getJSONObject(i);
             double lat = object.getDouble("lat");
             double lng = object.getDouble("lng");
@@ -34,7 +35,10 @@ public class ItemReader {
             if (!object.isNull("snippet")) {
                 snippet = object.getString("snippet");
             }
-            items.add(new MyItem(lat, lng, title, snippet));
+            if (!object.isNull("tag")) {
+                snippet = object.getString("tag");
+            }
+            items.add(new MyItem(lat, lng, title, snippet ,tag));
         }
         return items;
     }
