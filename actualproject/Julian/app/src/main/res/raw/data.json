@@ -1,0 +1,14 @@
+[
+  { "lat" : 40.869402, "lng" : -124.086886, "title" : "Don's Donuts", "snippet": "Awesome cheap donuts!" },
+  { "lat" : 40.870389, "lng" : -124.086462, "title" : "Arcata Pizza and Deli", "snippet": "Pizza open kinda late"},
+  { "lat" : 40.868720, "lng" : -124.087744, "title" : "Slice of Humboldt Pie", "snippet": "Tasty Pie, Cider"},
+  { "lat" : 40.870602, "lng" : -124.087132, "title" : "Scoops", "snippet": "Delicious handmade icecream."},
+  { "lat" : 40.870874, "lng" : -124.086508, "title" : "Crush", "snippet": "Fancy"},
+  { "lat" : 40.870640,  "lng" : -124.087619, "title" : "Los Bagels", "snippet": "Variety of Bagels"},
+  { "lat" : 40.870345,  "lng" : -124.087580, "title" : "La Chiquita", "snippet": "Burritos on hit!"},
+  { "lat" : 40.868840,  "lng" : -124.085382, "title" : "Sushi Spot", "snippet": "Dank sushi"},
+  { "lat" : 40.867107, "lng" : -124.088960, "title" : "Heart Of Humboldt", "snippet": "Dank bud, can be pricey"},
+  { "lat" : 40.867186,  "lng" : -124.089445, "title" : "Humboldt Patient Resource Center", "snippet": "Dank bud, also sells clones"},
+  { "lat" : 40.860344,  "lng" : -124.094531, "title" : "Arcata Marsh", "snippet": "Beautiful place on sunny day"}
+
+]
