@@ -43,10 +43,18 @@ public class ClusteringActivity extends BaseActivity {
 
 
     private void readItems() throws JSONException {
-        InputStream inputStream = getResources().openRawResource(R.raw.data);
+        /*InputStream inputStream = getResources().openRawResource(R.raw.data);
         items = new ItemReader().read(inputStream);
         mClusterManager.addItems(items);
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
-        ParseConnect.upLoadObjects();
+        ParseConnect.upLoadObjects(); */
+
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
+        items = new ItemReader().read(ParseConnect.serverMarkers);
+
+        mClusterManager.addItems(items);
+
+        //ParseConnect.upLoadObjects();
+
     }
 }

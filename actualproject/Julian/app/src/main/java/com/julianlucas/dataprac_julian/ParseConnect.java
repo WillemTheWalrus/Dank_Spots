@@ -19,6 +19,7 @@ import java.util.List;
 
 public class ParseConnect extends Application {
 
+    public static List<ParseObject> serverMarkers;
     public void onCreate() {
         super.onCreate();
 
@@ -54,6 +55,8 @@ public class ParseConnect extends Application {
             ParseObject marker = new ParseObject("Markers");
             marker.put("latitude",object.getPosition().latitude);
             marker.put("longitude", object.getPosition().longitude);
+            marker.put("Description",object.getSnippet());
+            marker.put("Type", object.getType());
             marker.put("Title", object.getTitle());
 
             marker.save();
@@ -65,25 +68,18 @@ public class ParseConnect extends Application {
     }
 
     public void getObjects(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("ExampleObject");
-        /*query.getInBackground("4oUzPYCdZG", new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                if(e==null && object != null){
-                    Log.i("ObjectValue", object.getString("myString"));
-                }
-                else{
-                    Log.i("ObjectValue","null");
-                }
-            }
-        });*/
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Markers");
+
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if(e == null && objects != null){
+                    serverMarkers = objects;
                     for (int i = 0; i < objects.size(); i++){
-                        Log.i("findtest",objects.get(i).getString("myString"));
+
+                        Log.i("findtest",objects.get(i).getString("Title"));
+
                     }
                 }
                 else{
