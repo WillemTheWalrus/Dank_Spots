@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 import com.julianlucas.dataprac_julian.item.MyItem;
+import com.parse.ParseAnalytics;
 
 import org.json.JSONException;
 
@@ -20,6 +21,8 @@ import java.util.List;
  * Simple activity demonstrating ClusterManager.
  */
 public class ClusteringActivity extends BaseActivity {
+
+    public static List<MyItem> items;
     private ClusterManager<MyItem> mClusterManager;
 
     @Override
@@ -41,7 +44,9 @@ public class ClusteringActivity extends BaseActivity {
 
     private void readItems() throws JSONException {
         InputStream inputStream = getResources().openRawResource(R.raw.data);
-        List<MyItem> items = new ItemReader().read(inputStream);
+        items = new ItemReader().read(inputStream);
         mClusterManager.addItems(items);
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
+        ParseConnect.upLoadObjects();
     }
 }
