@@ -4,10 +4,12 @@ package com.julianlucas.dataprac_julian;
  * Created by JulianLucas on 4/10/18.
  */
 
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
 import com.julianlucas.dataprac_julian.item.MyItem;
 import com.parse.ParseAnalytics;
@@ -15,6 +17,8 @@ import com.parse.ParseAnalytics;
 import org.json.JSONException;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,7 +27,7 @@ import java.util.List;
 public class ClusteringActivity extends BaseActivity {
 
     public static List<MyItem> items;
-    private ClusterManager<MyItem> mClusterManager;
+    public static ClusterManager<MyItem> mClusterManager;
 
     @Override
     protected void startMap() {
@@ -53,6 +57,7 @@ public class ClusteringActivity extends BaseActivity {
         items = new ItemReader().read(ParseConnect.serverMarkers);
 
         mClusterManager.addItems(items);
+
 
         //ParseConnect.upLoadObjects();
 

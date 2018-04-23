@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="@android:color/white"
+
 tools:context="com.julianlucas.dataprac_julian.MainActivity">
 
     <TextView
@@ -15,7 +15,7 @@ tools:context="com.julianlucas.dataprac_julian.MainActivity">
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:text="Welcome to DankSpots! We are NOT liable for anything done while and after using this app, have fun and don't drive high!"
-        android:textColor="@android:color/black"
+
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

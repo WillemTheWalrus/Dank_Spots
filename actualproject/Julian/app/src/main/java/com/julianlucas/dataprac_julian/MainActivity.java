@@ -9,18 +9,28 @@ import android.view.View;
 
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Marker;
+import com.google.maps.android.MarkerManager;
+import com.google.maps.android.clustering.ClusterManager;
+import com.julianlucas.dataprac_julian.item.MyItem;
 import com.parse.ParseAnalytics;
+
+import java.util.Collection;
+import java.util.List;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
     private ViewGroup mListView;
 
+
     Button b1, b2;
     EditText ed1, ed2;
+    List<MyItem> markerList = ClusteringActivity.items;
 
     TextView tx1;
 
@@ -29,6 +39,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
 
         b1 = (Button) findViewById(R.id.login);
@@ -51,6 +63,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     }
+
+
 
 
     @Override

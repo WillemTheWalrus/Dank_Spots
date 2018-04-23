@@ -109,12 +109,16 @@
       <file leaf-file-name="ParseConnect.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/julianlucas/dataprac_julian/ParseConnect.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             <state relative-caret-position="90">
               <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
 =======
             <state relative-caret-position="126">
+=======
+            <state relative-caret-position="70">
+>>>>>>> Stashed changes
               <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -2065,7 +2069,8 @@
     <option name="height" value="716" />
 =======
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1913" />
+    <option name="x" value="2332" />
+    <option name="y" value="-23" />
     <option name="width" value="694" />
     <option name="height" value="735" />
 >>>>>>> 16c25fb8ea211ec054661f219193ba116a0009fe
@@ -2798,7 +2803,7 @@
 =======
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/julianlucas/dataprac_julian/ParseConnect.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
+        <state relative-caret-position="70">
           <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />

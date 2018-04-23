@@ -26,7 +26,8 @@
 
             android:value="@string/parse_client_key" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +48,8 @@
 
         <activity
             android:name=".ClusteringActivity"
-            android:label="@string/title_activity_markers"></activity>
+            android:label="@string/title_activity_markers"
+            android:theme="@style/DankSpots"></activity>
     </application>
 
 </manifest>
