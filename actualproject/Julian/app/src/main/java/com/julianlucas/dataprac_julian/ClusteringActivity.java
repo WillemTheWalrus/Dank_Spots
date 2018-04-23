@@ -53,23 +53,22 @@ public class ClusteringActivity extends BaseActivity {
         {
             BaseActivity.mMap.clear();
             mClusterManager.clearItems();
-            List<MyItem> noMunchies = new ArrayList<MyItem>();
+
             for(int i = 0; i < items.size(); i++){
                 if(!items.get(i).getType().equals("munchies")){
-                    noMunchies.add(items.get(i));
+                    mClusterManager.addItem(items.get(i));
                 }
             }
-            mClusterManager.addItems(noMunchies);
+
             mClusterManager.cluster();
 
         }else{
-            List<MyItem> munchiesOnly = new ArrayList<MyItem>();
+
             for(int i = 0; i < items.size(); i++){
                 if(items.get(i).getType().equals("munchies")){
-                    munchiesOnly.add(items.get(i));
+                    mClusterManager.addItem(items.get(i));
                 }
             }
-            mClusterManager.addItems(munchiesOnly);
             mClusterManager.cluster();
         }
 

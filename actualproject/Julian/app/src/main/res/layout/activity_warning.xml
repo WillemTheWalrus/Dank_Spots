@@ -9,13 +9,12 @@ tools:context="com.julianlucas.dataprac_julian.MainActivity">
 
     <TextView
         android:id="@+id/warning"
-        android:layout_width="316dp"
-        android:layout_height="173dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:text="Welcome to DankSpots! We are NOT liable for anything done while and after using this app, have fun and don't drive high!"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
 
+        android:text="Welcome to DankSpots! We are NOT liable for anything done while and after using this app, have fun and don't drive high!"
+        android:textColor="@android:color/white"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

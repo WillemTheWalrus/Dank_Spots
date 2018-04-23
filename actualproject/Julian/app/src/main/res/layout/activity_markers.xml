@@ -11,10 +11,9 @@
         android:id="@+id/plugs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+
+        android:layout_alignTop="@+id/spots"
         android:layout_centerHorizontal="true"
-        android:layout_margin="8dp"
-        android:layout_marginTop="0dp"
         android:checked="true"
         android:text="Plugs"
         android:textColor="@android:color/white" />
@@ -24,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
+
+        android:layout_alignTop="@+id/munchies"
         android:checked="true"
         android:text="Spots"
         android:textColor="@android:color/white" />
@@ -34,12 +33,13 @@
         android:id="@+id/munchies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="83dp"
         android:checked="true"
         android:onClick="filterMunchies"
-        android:text="CheckBox"
-        android:textColor="@android:color/white"
-        tools:text="Munchies" />
+        android:text="Munchies"
+        android:textColor="@android:color/white" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -56,4 +56,5 @@
             android:layout_alignParentTop="true"
             tools:context="com.julianlucas.dataprac_julian.BaseActivity" />
     </FrameLayout>
+
 </RelativeLayout>
