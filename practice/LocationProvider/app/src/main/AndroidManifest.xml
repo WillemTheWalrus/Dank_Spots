@@ -49,8 +49,7 @@
         <activity
             android:name=".ClusteringActivity"
             android:label="@string/title_activity_markers"
-            android:theme="@style/DankSpots"
-            android:screenOrientation="portrait"></activity>
+            android:theme="@style/DankSpots"></activity>
     </application>
 
 </manifest>
