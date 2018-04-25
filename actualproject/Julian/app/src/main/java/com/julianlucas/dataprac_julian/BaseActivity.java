@@ -1,8 +1,11 @@
 package com.julianlucas.dataprac_julian;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 import java.util.List;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +28,20 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         setUpMap();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        item.setChecked(true);
+                        if(item.getItemId() == R.id.mySpots){
+
+                        }
+                        return true;
+                    }
+                }
+        );
 
     }
 
@@ -57,71 +74,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     }
 
 
-    /*
-    public void plugFilter(View view){
 
-        CheckBox plugs  = findViewById(R.id.plugs);
-        boolean isChecked = plugs.isChecked();
-
-        if(isChecked){
-            for(int i = 0; i < markerList.size(); i++){
-                if(markerList.get(i).getType().equals("plug")){
-                    mapMarkers.
-                }
-            }
-        }
-        else{
-            for(int i = 0; i < markerList.size(); i++){
-                if(markerList.get(i).getType()==1){
-                    mapMarkers.get(i).setVisible(false);
-                }
-            }
-        }
-
-    }
-
-    public void spotFilter(View view){
-
-        CheckBox spots  = findViewById(R.id.spots);
-        boolean isChecked = spots.isChecked();
-
-        if(isChecked){
-            for(int i = 0; i < markerList.size(); i++){
-                if(markerList.get(i).getType()== 2 ){
-                    mapMarkers.get(i).setVisible(true);
-                }
-            }
-        }
-        else{
-            for(int i = 0; i < markerList.size(); i++){
-                if(markerList.get(i).getType()== 2){
-                    mapMarkers.get(i).setVisible(false);
-                }
-            }
-        }
-
-    }
-
-    public void munchiesFilter(View view){
-        CheckBox munchies  = findViewById(R.id.munchies);
-        boolean isChecked = munchies.isChecked();
-
-        if(isChecked){
-            for(int i = 0; i < markerList.size(); i++){
-                if(markerList.get(i).getType()==0){
-                    mapMarkers.get(i).setVisible(true);
-                }
-            }
-        }
-        else{
-            for(int i = 0; i < markerList.size(); i++){
-                if(markerList.get(i).getType()==0){
-                    mapMarkers.get(i).setVisible(false);
-                }
-            }
-        }
-    }
-    */
 }
 
 
