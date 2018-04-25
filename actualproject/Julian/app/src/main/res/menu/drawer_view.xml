@@ -13,7 +13,7 @@
             android:id="@+id/Settings"/>
         <item
             android:id="@+id/homies"
-            android:title="Homie Center"/>
+            android:title="Buddy Center"/>
 
     </group>
 

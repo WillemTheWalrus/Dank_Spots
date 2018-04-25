@@ -19,6 +19,7 @@ import java.util.List;
 /*
 Setting Bitnami application password to 'cvO8Gpp6y6CY'
  (the default application username is 'user')
+ ec2-52-53-128-162.us-west-1.compute.amazonaws.com
  */
 public class ParseConnect extends Application {
 

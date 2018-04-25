@@ -77,8 +77,8 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
 
         //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f));
 
-        mMap.setMinZoomPreference(15.0f);
         mMap.setMaxZoomPreference(23.0f);
     }
 
