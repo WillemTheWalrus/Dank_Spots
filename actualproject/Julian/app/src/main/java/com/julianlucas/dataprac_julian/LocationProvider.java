@@ -28,9 +28,12 @@ public class LocationProvider implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+
+
     public abstract interface LocationCallback {
         public void handleNewLocation(Location location);
     }
+
 
     public static final String TAG = LocationProvider.class.getSimpleName();
 
@@ -92,6 +95,7 @@ public class LocationProvider implements
         else {
             mLocationCallback.handleNewLocation(location);
         }
+        ParseConnect.upLoadLocation(location);
     }
 
 

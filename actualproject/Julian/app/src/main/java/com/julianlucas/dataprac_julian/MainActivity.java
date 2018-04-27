@@ -27,6 +27,8 @@ import java.util.List;
 public class MainActivity extends Activity implements View.OnClickListener {
     private ViewGroup mListView;
 
+    public static String Username;
+    public static String Password;
 
     Button b1, b2;
     EditText ed1, ed2;
@@ -52,6 +54,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     public void submitButton(View v) {
+        Username = ed1.getText().toString();
+        Password = ed2.getText().toString();
         setContentView(R.layout.activity_warning);
 
     }

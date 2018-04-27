@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
 
         <item
 
             android:id="@+id/mySpots"
-            android:checkable="false"
-            android:icon="@drawable/weedresize"
+            android:icon="@mipmap/ic_menu_item_weed"
             android:title="Your Markers" />
         <item
             android:title="Settings"

@@ -1,6 +1,7 @@
 package com.julianlucas.dataprac_julian;
 
 import android.app.Application;
+import android.location.Location;
 import android.util.Log;
 
 import com.julianlucas.dataprac_julian.item.MyItem;
@@ -16,6 +17,9 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.List;
+
+import static com.julianlucas.dataprac_julian.MainActivity.Username;
+
 /*
 Setting Bitnami application password to 'cvO8Gpp6y6CY'
  (the default application username is 'user')
@@ -24,6 +28,7 @@ Setting Bitnami application password to 'cvO8Gpp6y6CY'
 public class ParseConnect extends Application {
 
     public static List<ParseObject> serverMarkers;
+    public static List<ParseObject> serverAccount;
     public void onCreate() {
         super.onCreate();
 
@@ -48,28 +53,51 @@ public class ParseConnect extends Application {
         defaultACL.setPublicWriteAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
         getObjects();
+        getAccounts();
 
     }
 
-    public  static void upLoadObjects(){
+    public  static void upLoadLocation(Location location){
 
         try{
-        for(MyItem object : ClusteringActivity.items){
 
-            ParseObject marker = new ParseObject("Markers");
-            marker.put("latitude",object.getPosition().latitude);
-            marker.put("longitude", object.getPosition().longitude);
-            marker.put("Description",object.getSnippet());
-            marker.put("Type", object.getType());
-            marker.put("Title", object.getTitle());
+            for(int i = 0; i < serverAccount.size(); i++){
+                if(serverAccount.get(i).getString("Username").equals(Username)){
+                    ParseGeoPoint point = new ParseGeoPoint(location.getLatitude(), location.getLongitude());
+                    serverAccount.get(i).put("Location", point );
+                    serverAccount.get(i).save();
+                }
 
-            marker.save();
+
+
+
         }}catch (ParseException e){
             Log.i("upload", e.toString());
         }
 
 
     }
+
+    public void getAccounts() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Account");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+
+                if(e == null && objects!= null){
+                    serverAccount = objects;
+                    for(int i = 0; i < objects.size(); i++){
+                        Log.i("Accountfind", objects.get(i).getClassName());
+                    }
+                }
+                else{
+                    Log.i("error", e.toString());
+                }
+            }
+        });
+
+    }
+
 
     public void getObjects(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Markers");
