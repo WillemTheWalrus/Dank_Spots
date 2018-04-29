@@ -50,7 +50,10 @@
             android:label="@string/title_activity_markers"
             android:screenOrientation="portrait"
             android:theme="@style/DankSpots" />
-        <activity android:name=".CreateAccount"></activity>
+        <activity android:name=".CreateAccount" />
+        <activity
+            android:name=".addMarker"
+            android:label="@string/title_activity_add_marker"></activity>
     </application>
 
 </manifest>

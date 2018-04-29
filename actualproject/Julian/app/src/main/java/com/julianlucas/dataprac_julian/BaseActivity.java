@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -53,6 +54,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
                     }
                 }
         );
+
 
     }
 

@@ -7,6 +7,7 @@ package com.julianlucas.dataprac_julian;
  * Created by JulianLucas on 4/10/18.
  */
 
+        import android.os.AsyncTask;
         import android.util.Log;
         import android.view.View;
         import android.widget.ArrayAdapter;
@@ -70,25 +71,6 @@ public class ClusteringActivity extends BaseActivity {
             Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
 
-        Collection<Marker> spotCollection = spotClusterManager.getMarkerCollection().getMarkers();
-        Collection<Marker> munchiesCollection = munchiesClusterManager.getMarkerCollection().getMarkers();
-        Collection<Marker> plugCollection = plugClusterManager.getMarkerCollection().getMarkers();
-
-        ArrayList<Marker> spotMarkers = new ArrayList<>(spotCollection);
-        ArrayList<Marker> munchiesMarkers = new ArrayList<>(munchiesCollection);
-        ArrayList<Marker> plugMarkers = new ArrayList<>(plugCollection);
-        for(int i = 0; i < spotMarkers.size(); i++){
-            spotMarkers.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-
-        }
-        for(int i = 0; i < munchiesMarkers.size(); i++){
-            munchiesMarkers.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        }
-
-        for(int i = 0; i < plugMarkers.size(); i++){
-            plugMarkers.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        }
-
     }
 
     public  void filterMunchies(View view){
@@ -110,6 +92,44 @@ public class ClusteringActivity extends BaseActivity {
             }
         }
 
+    }
+
+    public void filterSpots(View view){
+        Collection<Marker> spotCollection = spotClusterManager.getMarkerCollection().getMarkers();
+        ArrayList<Marker> spotMarkers = new ArrayList<>(spotCollection);
+
+        CheckBox spotbox = findViewById(R.id.spots);
+        if(!spotbox.isChecked())
+        {
+            for(int i = 0;  i < spotMarkers.size(); i++){
+                spotMarkers.get(i).setVisible(false);
+            }
+
+        }else{
+
+            for(int i = 0;  i < spotMarkers.size(); i++){
+                spotMarkers.get(i).setVisible(true);
+            }
+        }
+    }
+
+    public void plugFilter(View view){
+        Collection<Marker> plugCollection = plugClusterManager.getMarkerCollection().getMarkers();
+        ArrayList<Marker> plugMarkers = new ArrayList<>(plugCollection);
+
+        CheckBox plugbox = findViewById(R.id.plugs);
+        if(!plugbox.isChecked())
+        {
+            for(int i = 0;  i < plugMarkers.size(); i++){
+                plugMarkers.get(i).setVisible(false);
+            }
+
+        }else{
+
+            for(int i = 0;  i < plugMarkers.size(); i++){
+               plugMarkers.get(i).setVisible(true);
+            }
+        }
     }
 
     public void addColor(View view){

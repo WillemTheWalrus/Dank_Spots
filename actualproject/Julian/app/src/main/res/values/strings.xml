@@ -8,4 +8,5 @@
     <string name="account_creation_instructions">Please enter in a unique username and two matching passwords into the fields provided</string>
     <string name="username_not_unique">This username has already been taken, Please use a different one</string>
     <string name="match_passwords">The passwords you entered do not match, please try again</string>
+    <string name="title_activity_add_marker">Map</string>
 </resources>

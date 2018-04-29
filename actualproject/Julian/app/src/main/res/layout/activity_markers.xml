@@ -21,8 +21,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:onClick="addColor"
                 android:text="Colorize" />
+
             <CheckBox
                 android:id="@+id/plugs"
                 android:layout_width="wrap_content"
@@ -31,6 +31,7 @@
                 android:layout_alignTop="@+id/spots"
                 android:layout_centerHorizontal="true"
                 android:checked="true"
+                android:onClick="plugFilter"
                 android:text="Plugs"
                 android:textColor="@android:color/white" />
 
@@ -42,6 +43,7 @@
 
                 android:layout_alignTop="@+id/munchies"
                 android:checked="true"
+                android:onClick="filterSpots"
                 android:text="Spots"
                 android:textColor="@android:color/white" />
 
@@ -57,6 +59,8 @@
                 android:text="Munchies"
                 android:textColor="@android:color/white" />
 
+
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,7 +74,16 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    tools:context="com.julianlucas.dataprac_julian.BaseActivity" />
+                    tools:context="com.julianlucas.dataprac_julian.BaseActivity" >
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/floatingActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:srcCompat="@android:drawable/ic_input_add" />
+                </fragment>
+
             </FrameLayout>
 
         </RelativeLayout>

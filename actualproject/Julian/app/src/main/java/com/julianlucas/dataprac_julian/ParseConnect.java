@@ -88,6 +88,7 @@ public class ParseConnect extends Application {
 
     public void getAccounts() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Account");
+
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
