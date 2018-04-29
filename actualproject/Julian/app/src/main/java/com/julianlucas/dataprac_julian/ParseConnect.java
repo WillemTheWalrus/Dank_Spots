@@ -78,6 +78,14 @@ public class ParseConnect extends Application {
 
     }
 
+    public static void upLoadAccount(String username, String password)
+    {
+        ParseObject newAccount = new ParseObject("Account");
+        newAccount.put("Username", username);
+        newAccount.put("Password", password);
+        newAccount.saveInBackground();
+    }
+
     public void getAccounts() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Account");
         query.findInBackground(new FindCallback<ParseObject>() {
