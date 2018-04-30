@@ -7,6 +7,7 @@ package com.julianlucas.dataprac_julian;
  * Created by JulianLucas on 4/10/18.
  */
 
+        import android.content.Intent;
         import android.os.AsyncTask;
         import android.util.Log;
         import android.view.View;
@@ -171,4 +172,11 @@ public class ClusteringActivity extends BaseActivity {
         }
 
     }
+
+    public void addNewMarker(View view){
+        Intent intent = new Intent(this, addMarker.class);
+        startActivity(intent);
+    }
+
+
 }

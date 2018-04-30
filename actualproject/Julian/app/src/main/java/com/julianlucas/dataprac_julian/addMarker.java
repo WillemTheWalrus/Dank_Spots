@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,7 +20,7 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    public LatLng markerLoc;
+    public   ParseGeoPoint markerLoc;
     public String markerTitle;
     public String markerDescription;
 
@@ -38,6 +39,26 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
         the following code was taken from: http://wptrafficanalyzer.in/blog/adding-marker-on-touched-location-of-google-maps-using-android-api-v2-with-supportmapfragment/
 
          */
+
+
+    }
+
+
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+        mMap = googleMap;
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -64,22 +85,6 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
                 mMap.addMarker(markerOptions);
             }
         });
-    }
-
-
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
@@ -89,14 +94,23 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
 
     public void finishActivity(View view){
 
-        ParseGeoPoint point = new ParseGeoPoint(markerLoc.latitude, markerLoc.longitude);
-        ParseObject userMarker = new ParseObject("Marker");
+        EditText titleText = findViewById(R.id.editTitle);
+        EditText descriptionText = findViewById(R.id.editDescription);
+
+        markerDescription = descriptionText.getText().toString();
+        markerTitle = titleText.getText().toString();
+
+        markerLoc = new ParseGeoPoint(LocationProvider.loc.getLatitude(), LocationProvider.loc.getLongitude());
+
+
+
+        ParseObject userMarker = new ParseObject("Markers");
         userMarker.put("Title",markerTitle);
         userMarker.put("Description", markerDescription);
-        userMarker.put("location", point );
+        userMarker.put("location", markerLoc );
         userMarker.saveInBackground();
 
-        Intent intent = new Intent(this, BaseActivity.class);
+        Intent intent = new Intent(this, ClusteringActivity.class);
         startActivity(intent);
 
     }
