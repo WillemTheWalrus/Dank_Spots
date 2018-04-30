@@ -27,6 +27,14 @@ Setting Bitnami application password to 'cvO8Gpp6y6CY'
  */
 public class ParseConnect extends Application {
 
+    /*
+    ArrayList<GeoPoint> myGeoPoints = new ArrayList<GeoPoint>();
+    for(int i = 0; i < serverMarkers.size(); i++)
+    {
+        myGeioPoints.add(serverMarkers.get(i).get("location"));
+        }
+     */
+
     public static List<ParseObject> serverMarkers;
     public static List<ParseObject> serverAccount;
     public void onCreate() {
@@ -110,8 +118,6 @@ public class ParseConnect extends Application {
 
     public void getObjects(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Markers");
-
-
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {

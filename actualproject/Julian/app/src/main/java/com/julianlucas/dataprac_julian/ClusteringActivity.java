@@ -40,7 +40,7 @@ package com.julianlucas.dataprac_julian;
 public class ClusteringActivity extends BaseActivity {
 
     public static List<MyItem> items;
-    public static ClusterManager<MyItem> mClusterManager;
+
     public static ClusterManager<MyItem> spotClusterManager;
     public static ClusterManager<MyItem> munchiesClusterManager;
     public static ClusterManager<MyItem> plugClusterManager;
@@ -50,7 +50,7 @@ public class ClusteringActivity extends BaseActivity {
 
         //getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(40.869402, -124.086886), 15));
         MarkerManager markerManager = new MarkerManager(getMap());
-        mClusterManager = new ClusterManager<MyItem>(this, getMap(), markerManager);
+
         spotClusterManager = new ClusterManager<MyItem>(this, getMap(),markerManager);
         plugClusterManager = new ClusterManager<MyItem>(this, getMap(),markerManager);
         munchiesClusterManager = new ClusterManager<MyItem>(this, getMap(),markerManager);

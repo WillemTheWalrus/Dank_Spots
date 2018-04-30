@@ -49,7 +49,7 @@ public class LocationProvider implements
     private Context mContext;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-
+    public static Location loc;
 
 
     public LocationProvider(Context context, LocationCallback callback) {
@@ -89,6 +89,7 @@ public class LocationProvider implements
         Log.i(TAG, "Location services connected.");
 
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        loc = location;
         if (location == null) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }

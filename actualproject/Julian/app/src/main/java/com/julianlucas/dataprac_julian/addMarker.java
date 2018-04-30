@@ -1,18 +1,29 @@
 package com.julianlucas.dataprac_julian;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 
 public class addMarker extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
+    public LatLng markerLoc;
+    public String markerTitle;
+    public String markerDescription;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,5 +85,19 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void finishActivity(View view){
+
+        ParseGeoPoint point = new ParseGeoPoint(markerLoc.latitude, markerLoc.longitude);
+        ParseObject userMarker = new ParseObject("Marker");
+        userMarker.put("Title",markerTitle);
+        userMarker.put("Description", markerDescription);
+        userMarker.put("location", point );
+        userMarker.saveInBackground();
+
+        Intent intent = new Intent(this, BaseActivity.class);
+        startActivity(intent);
+
     }
 }
