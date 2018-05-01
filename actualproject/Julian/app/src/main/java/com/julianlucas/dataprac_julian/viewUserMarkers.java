@@ -1,8 +1,10 @@
 package com.julianlucas.dataprac_julian;
 
+import android.graphics.Point;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,8 +43,15 @@ public class viewUserMarkers extends FragmentActivity implements OnMapReadyCallb
         // Add a marker in Sydney and move the camera
         LatLng arcata = new LatLng(40.868571, -124.086450);
 
+
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(arcata));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(10.0f));
+
+        addMarker.putUserMarkers(mMap);
     }
+
+
 
 
 }

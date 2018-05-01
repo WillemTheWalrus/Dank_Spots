@@ -1,6 +1,7 @@
 package com.julianlucas.dataprac_julian;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -40,6 +42,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
         setContentView(getLayoutId());
         setUpMap();
 
+        final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -47,7 +50,11 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         item.setChecked(true);
+                        drawerLayout.closeDrawers();
                         if (item.getItemId() == R.id.mySpots) {
+                            Intent intent = new Intent(getBaseContext(), viewUserMarkers.class);
+                            startActivity(intent);
+                            finish();
 
                         }
                         return true;

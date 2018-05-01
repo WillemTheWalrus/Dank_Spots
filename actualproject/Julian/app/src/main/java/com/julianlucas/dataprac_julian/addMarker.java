@@ -123,10 +123,10 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
 
                 // Placing a marker on the touched position
                 mMap.addMarker(markerOptions);
-                putUserMarkers();
+                putUserMarkers(mMap);
             }
         });
-        putUserMarkers();
+        putUserMarkers(mMap);
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -134,7 +134,7 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
     }
 
 
-    public void putUserMarkers(){
+    public static void putUserMarkers(GoogleMap map){
 
         List<ParseObject> userMarkers = new ArrayList<ParseObject>();
 
@@ -151,7 +151,7 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
             LatLng loc = new LatLng(markerLocation.getLatitude(), markerLocation.getLongitude());
             String title = (String)userMarkers.get(i).get("Title");
             String snippet = (String)userMarkers.get(i).get("Description");
-            mMap.addMarker(new MarkerOptions().position(loc).title(title).snippet(snippet));
+            map.addMarker(new MarkerOptions().position(loc).title(title).snippet(snippet));
         }
 
     }
