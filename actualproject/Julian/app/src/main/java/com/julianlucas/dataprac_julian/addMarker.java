@@ -24,6 +24,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.julianlucas.dataprac_julian.ParseConnect.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.julianlucas.dataprac_julian.ParseConnect.*;
 
 public class addMarker extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, LocationProvider.LocationCallback {
 
@@ -117,13 +123,37 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
 
                 // Placing a marker on the touched position
                 mMap.addMarker(markerOptions);
+                putUserMarkers();
             }
         });
-
+        putUserMarkers();
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+
+    public void putUserMarkers(){
+
+        List<ParseObject> userMarkers = new ArrayList<ParseObject>();
+
+        for(int i = 0; i < serverMarkers.size(); i++){
+            if(serverMarkers.get(i).getString("AddedBy").equals(MainActivity.Username)){
+                userMarkers.add(serverMarkers.get(i));
+            }
+        }
+
+        for(int i = 0; i < userMarkers.size(); i++) {
+
+            ParseGeoPoint markerLocation = userMarkers.get(i).getParseGeoPoint("location");
+
+            LatLng loc = new LatLng(markerLocation.getLatitude(), markerLocation.getLongitude());
+            String title = (String)userMarkers.get(i).get("Title");
+            String snippet = (String)userMarkers.get(i).get("Description");
+            mMap.addMarker(new MarkerOptions().position(loc).title(title).snippet(snippet));
+        }
+
     }
 
     public void handleNewLocation(Location location) {
@@ -186,6 +216,7 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
         userMarker.put("Title",markerTitle);
         userMarker.put("Description", markerDescription);
         userMarker.put("location", markerLoc );
+        userMarker.put("AddedBy", MainActivity.Username);
         userMarker.saveInBackground();
 
 
