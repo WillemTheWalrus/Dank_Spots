@@ -53,7 +53,10 @@
         <activity android:name=".CreateAccount" />
         <activity
             android:name=".addMarker"
-            android:label="@string/title_activity_add_marker"></activity>
+            android:label="@string/title_activity_add_marker" />
+        <activity
+            android:name=".viewUserMarkers"
+            android:label="@string/title_activity_view_user_markers"></activity>
     </application>
 
 </manifest>
