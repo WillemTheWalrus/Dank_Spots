@@ -1,8 +1,14 @@
 package com.julianlucas.dataprac_julian;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -16,13 +22,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
-public class addMarker extends FragmentActivity implements OnMapReadyCallback {
+public class addMarker extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, LocationProvider.LocationCallback {
 
     private GoogleMap mMap;
 
-    public   ParseGeoPoint markerLoc;
+    public ParseGeoPoint markerLoc;
     public String markerTitle;
     public String markerDescription;
+    public int REQUEST_PERMISSIONS_ACCESS;
+    private LocationProvider mLocationProvider;
 
 
 
@@ -30,10 +38,14 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_marker);
+        //mLocationProvider.connect();
+        setUpMap();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
 
         /*
         the following code was taken from: http://wptrafficanalyzer.in/blog/adding-marker-on-touched-location-of-google-maps-using-android-api-v2-with-supportmapfragment/
@@ -43,6 +55,11 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mLocationProvider.disconnect();
+    }
 
 
     /**
@@ -59,6 +76,19 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
 
 
         mMap = googleMap;
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Camera permission has not been granted.
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_ACCESS);
+
+        } else {
+            mMap.setMyLocationEnabled(true);
+            mMap.setOnMyLocationButtonClickListener(this);
+            mMap.setOnMyLocationClickListener(this);
+        }
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -87,11 +117,38 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
         });
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+       // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
+    public void handleNewLocation(Location location) {
+
+        double currentLatitude = location.getLatitude();
+        double currentLongitude = location.getLongitude();
+        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f));
+
+        mMap.setMaxZoomPreference(23.0f);
+    }
+
+    private void setUpMap() {
+        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Camera permission has not been granted.
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_ACCESS);
+
+        } else {
+
+            mLocationProvider = new LocationProvider(this, this);
+        }
+    }
     public void finishActivity(View view){
 
         EditText titleText = findViewById(R.id.editTitle);
@@ -110,8 +167,25 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback {
         userMarker.put("location", markerLoc );
         userMarker.saveInBackground();
 
+
         Intent intent = new Intent(this, ClusteringActivity.class);
         startActivity(intent);
+
+    }
+
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        return false;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 }
