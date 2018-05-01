@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -162,6 +165,23 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
 
 
         ParseObject userMarker = new ParseObject("Markers");
+
+        RadioGroup typeGroup= findViewById(R.id.typeGroup);
+        int typeNum = typeGroup.getCheckedRadioButtonId();
+        RadioButton booty = findViewById(typeNum);
+        String bootyText = booty.getText().toString();
+
+        if(bootyText.equals("Spot")){
+            userMarker.put("Type", "spot");
+        }
+        else if(bootyText.equals("Munchies")){
+            userMarker.put("Type", "munchies");
+        }
+        else if(bootyText.equals("Plug")){
+            userMarker.put("Type", "plug");
+        }
+
+
         userMarker.put("Title",markerTitle);
         userMarker.put("Description", markerDescription);
         userMarker.put("location", markerLoc );

@@ -87,7 +87,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap map) {
         if (mMap != null) {
-            return;
+            startMap();
         }
         mMap = map;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)

@@ -38,11 +38,41 @@
         android:ems="10"
         android:inputType="textMultiLine" />
 
+    <RadioGroup
+        android:id="@+id/typeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editDescription"
+        android:layout_centerHorizontal="true">
+
+        <RadioButton
+            android:id="@+id/radioMunchies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Munchies"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/radioSpot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spot"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/radioPlug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plug"
+            android:textColor="@android:color/white" />
+
+    </RadioGroup>
+
     <Button
         android:id="@+id/dropButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editDescription"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="finishActivity"
         android:text="Add Marker" />
