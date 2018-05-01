@@ -14,15 +14,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             tools:context=".ClusteringActivity">
-
+    <!--
             <Button
                 android:id="@+id/colorize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="Colorize" />
-
+                android:text="Colorize"
+                android:onClick="addColor"/>
+    -->
             <CheckBox
                 android:id="@+id/plugs"
                 android:layout_width="wrap_content"

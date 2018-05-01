@@ -176,6 +176,7 @@ public class ClusteringActivity extends BaseActivity {
     public void addNewMarker(View view){
         Intent intent = new Intent(this, addMarker.class);
         startActivity(intent);
+        finish();
     }
 
 

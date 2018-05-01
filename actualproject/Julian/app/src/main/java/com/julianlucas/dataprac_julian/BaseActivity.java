@@ -27,7 +27,7 @@ import java.util.Collection;
 public abstract class BaseActivity extends FragmentActivity implements OnMapReadyCallback, LocationProvider.LocationCallback, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
     public static GoogleMap mMap;
     private LocationProvider mLocationProvider;
-    public int REQUEST_PERMISSIONS_ACCESS;
+    public final int REQUEST_PERMISSIONS_ACCESS = 69;
 
 
     protected int getLayoutId() {
@@ -39,7 +39,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         setUpMap();
-        mLocationProvider.connect();
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
@@ -62,13 +62,23 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     protected void onResume() {
         super.onResume();
         setUpMap();
-        mLocationProvider.connect();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Camera permission has not been granted.
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_ACCESS);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mLocationProvider.disconnect();
+        try {
+            mLocationProvider.disconnect();
+        } catch(NullPointerException e){
+            Log.i("exception", e.toString());
+        }
     }
 
     public void handleNewLocation(Location location) {
@@ -87,21 +97,57 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap map) {
         if (mMap != null) {
-            startMap();
-        }
-        mMap = map;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Camera permission has not been granted.
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_PERMISSIONS_ACCESS);
+            try {
 
-        } else {
-            mMap.setMyLocationEnabled(true);
-            mMap.setOnMyLocationButtonClickListener(this);
-            mMap.setOnMyLocationClickListener(this);
+                mMap.setMyLocationEnabled(true);
+                mMap.setOnMyLocationButtonClickListener(this);
+                mMap.setOnMyLocationClickListener(this);
+                mLocationProvider.connect();
+
+            } catch(SecurityException e){
+                Log.i("exception", e.toString());
+            }
             startMap();
+            mMap = map;
+        }
+        else{
+            mMap = map;
+        }
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS_ACCESS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    try {
+
+                        mLocationProvider = new LocationProvider(this, this);
+                        mMap.setMyLocationEnabled(true);
+                        mMap.setOnMyLocationButtonClickListener(this);
+                        mMap.setOnMyLocationClickListener(this);
+                        startMap();
+                        mLocationProvider.connect();
+                    }catch(SecurityException e){
+                        Log.i("exception", e.toString());
+                    }
+
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
         }
     }
 

@@ -99,6 +99,7 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
             public void onMapClick(LatLng latLng) {
 
                 // Creating a marker
+                markerLoc = new ParseGeoPoint(latLng.latitude, latLng.longitude);
                 MarkerOptions markerOptions = new MarkerOptions();
 
                 // Setting the position for the marker
@@ -160,7 +161,7 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
         markerDescription = descriptionText.getText().toString();
         markerTitle = titleText.getText().toString();
 
-        markerLoc = new ParseGeoPoint(LocationProvider.loc.getLatitude(), LocationProvider.loc.getLongitude());
+
 
 
 
