@@ -106,7 +106,7 @@ public class ClusteringActivity extends BaseActivity {
                     //select a random marker that is close by by generating a random index for the
                     // ParseObject list form the callback
                     Random generator = new Random();
-                    int index = generator.nextInt(10) ;
+                    int index = generator.nextInt(objects.size()) ;
                     if (index < 0) {
                         index *= -1;
                     }
@@ -119,7 +119,7 @@ public class ClusteringActivity extends BaseActivity {
                     LatLng markerLoc = new LatLng(selectedGeoPoint.getLatitude(), selectedGeoPoint.getLongitude());
 
                     //zoom the camera in so that all markers are displayed and can be grabbed from the cluster manager
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLoc, 22.0f));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLoc, 19.0f));
 
                     if(type.equals("munchies")){
                         munchiesClusterManager.cluster();
@@ -205,6 +205,7 @@ public class ClusteringActivity extends BaseActivity {
 
             for(int i = 0;  i < spotMarkers.size(); i++){
                 spotMarkers.get(i).setVisible(true);
+                showSpots = true;
             }
         }
     }
@@ -230,27 +231,7 @@ public class ClusteringActivity extends BaseActivity {
         }
     }
 
-    /*
-    public void addColor(){
-        Collection<Marker> spotCollection = spotClusterManager.getMarkerCollection().getMarkers();
-        Collection<Marker> munchiesCollection = munchiesClusterManager.getMarkerCollection().getMarkers();
-        Collection<Marker> plugCollection = plugClusterManager.getMarkerCollection().getMarkers();
 
-        ArrayList<Marker> spotMarkers = new ArrayList<>(spotCollection);
-        ArrayList<Marker> munchiesMarkers = new ArrayList<>(munchiesCollection);
-        ArrayList<Marker> plugMarkers = new ArrayList<>(plugCollection);
-        for(int i = 0; i < spotMarkers.size(); i++){
-            spotMarkers.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-        }
-        for(int i = 0; i < munchiesMarkers.size(); i++){
-            munchiesMarkers.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        }
-
-        for(int i = 0; i < plugMarkers.size(); i++){
-            plugMarkers.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        }
-    }
-*/
     private void readItems() throws JSONException {
 
 

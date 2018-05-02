@@ -43,7 +43,7 @@ public class ourSearchQuery implements OnQueryTextListener {
 
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(foundspot, 22.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(foundspot, 19.0f));
         return true;
     }
 }

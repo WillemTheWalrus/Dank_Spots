@@ -54,6 +54,7 @@ public class ourClusterRenderer extends DefaultClusterRenderer<MyItem> {
     protected void onBeforeClusterItemRendered(MyItem item, MarkerOptions markerOptions) {
         super.onBeforeClusterItemRendered(item, markerOptions);
 
+
         if(item.getType().equals("munchies")){
             if(!BaseActivity.showMunchies){
                 markerOptions.visible(false);
