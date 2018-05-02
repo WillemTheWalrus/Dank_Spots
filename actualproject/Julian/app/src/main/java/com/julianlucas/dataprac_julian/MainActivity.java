@@ -62,8 +62,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     public void submitButton(View v) {
-        Username = ed1.getText().toString();
-        Password = ed2.getText().toString();
+        Username = ed1.getText().toString().trim();
+        Password = ed2.getText().toString().trim();
 
         String serverUsername = null;
         String serverPassword = null;

@@ -52,6 +52,7 @@
 
                 android:layout_alignTop="@+id/spots"
                 android:layout_centerHorizontal="true"
+                android:buttonTint="@android:color/holo_green_dark"
                 android:checked="true"
                 android:onClick="plugFilter"
                 android:text="Plugs"
@@ -64,6 +65,7 @@
                 android:layout_alignParentEnd="true"
 
                 android:layout_alignTop="@+id/munchies"
+                android:buttonTint="#f6ee17"
                 android:checked="true"
                 android:onClick="filterSpots"
                 android:text="Spots"
