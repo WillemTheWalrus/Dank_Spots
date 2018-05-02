@@ -72,8 +72,9 @@ import java.util.Scanner;
                 String title = pobjects.get(i).getString("Title");
                 String description = pobjects.get(i).getString("Description");
                 String type = pobjects.get(i).getString("Type");
+                String owner = pobjects.get(i).getString("AddedBy");
 
-                MyItem item = new MyItem(location.getLatitude(),location.getLongitude(),title,description,type);
+                MyItem item = new MyItem(location.getLatitude(),location.getLongitude(),title,description,type, owner);
                 items.add(item);
             }
             Log.i("items", items.get(0).getTitle());

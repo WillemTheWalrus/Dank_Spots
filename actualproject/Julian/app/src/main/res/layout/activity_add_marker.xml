@@ -26,8 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:ems="10"
+        android:hint="Spot Name"
+        android:textColorHint="@android:color/white"
         android:inputType="textPersonName"
-        android:text="Spot Name"
         android:textColor="@android:color/white" />
 
     <EditText
@@ -37,16 +38,17 @@
         android:layout_below="@+id/editTitle"
         android:layout_centerHorizontal="true"
         android:ems="10"
+        android:hint="Spot Description"
         android:inputType="textMultiLine"
-        android:text="Spot Description"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
 
     <RadioGroup
         android:id="@+id/typeGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editDescription"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/editDescription"
+        android:layout_toEndOf="@+id/dropButton">
 
         <RadioButton
             android:id="@+id/radioMunchies"
@@ -59,6 +61,7 @@
             android:id="@+id/radioSpot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Spot"
             android:textColor="@android:color/white" />
 
@@ -69,6 +72,30 @@
             android:text="Plug"
             android:textColor="@android:color/white" />
 
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/addingGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editDescription"
+
+        android:layout_toStartOf="@+id/dropButton">
+
+        <RadioButton
+            android:id="@+id/privateAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Public"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/publicAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Private"
+            android:textColor="@android:color/white" />
     </RadioGroup>
 
     <Button

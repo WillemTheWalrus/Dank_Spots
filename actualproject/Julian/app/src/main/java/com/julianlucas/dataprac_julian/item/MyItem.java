@@ -14,6 +14,7 @@ public class MyItem implements ClusterItem {
     private String mTitle;
     private String mSnippet;
     private String type;
+    private String owner;
     private ArrayList<String> tags = new ArrayList<String>();
 
     public MyItem(double lat, double lng) {
@@ -23,11 +24,12 @@ public class MyItem implements ClusterItem {
         type = null;
     }
 
-    public MyItem(double lat, double lng, String title, String snippet, String tyype) {
+    public MyItem(double lat, double lng, String title, String snippet, String tyype, String Owner) {
         mPosition = new LatLng(lat, lng);
         mTitle = title;
         mSnippet = snippet;
         type = tyype ;
+        owner = Owner;
     }
 
     @Override
@@ -70,4 +72,10 @@ public class MyItem implements ClusterItem {
 
         mSnippet = snippet;
     }
+
+    public String getOwner(){
+        return owner;
+    }
+
+
 }

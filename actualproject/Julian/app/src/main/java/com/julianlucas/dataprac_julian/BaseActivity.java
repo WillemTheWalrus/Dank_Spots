@@ -31,6 +31,9 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     public static GoogleMap mMap;
     private LocationProvider mLocationProvider;
     public final int REQUEST_PERMISSIONS_ACCESS = 69;
+    public static boolean showMunchies;
+    public static boolean showSpots;
+    public static boolean showPlugs;
 
 
     protected int getLayoutId() {
@@ -41,7 +44,12 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        ParseConnect.getObjects();
         setUpMap();
+
+        showMunchies = true;
+        showPlugs = true;
+        showSpots = true;
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -143,7 +151,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
                         mMap.setOnMyLocationClickListener(this);
                         startMap();
                         mLocationProvider.connect();
-                        ClusteringActivity.addColor();
+
 
                     }catch(SecurityException e){
                         Log.i("exception", e.toString());

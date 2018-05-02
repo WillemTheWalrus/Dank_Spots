@@ -97,6 +97,11 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
             mMap.setMyLocationEnabled(true);
             mMap.setOnMyLocationButtonClickListener(this);
             mMap.setOnMyLocationClickListener(this);
+
+            LatLng userLoc = new LatLng(LocationProvider.loc.getLatitude(), LocationProvider.loc.getLongitude());
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLoc, 15.0f));
+
         }
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -183,6 +188,8 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
             mLocationProvider = new LocationProvider(this, this);
         }
     }
+
+
     public void finishActivity(View view){
 
         EditText titleText = findViewById(R.id.editTitle);
@@ -212,11 +219,25 @@ public class addMarker extends FragmentActivity implements OnMapReadyCallback, G
             userMarker.put("Type", "plug");
         }
 
+        RadioGroup addingGroup = findViewById(R.id.addingGroup);
+        int addNum = addingGroup.getCheckedRadioButtonId();
+        RadioButton butt = findViewById(addNum);
+        String addText = butt.getText().toString();
+
+        String uploadUsername = "";
+        if(addText.equals("Private")){
+            uploadUsername = MainActivity.Username;
+        }
+        else if (addText.equals("Public")){
+            uploadUsername = "default";
+        }
+
+
 
         userMarker.put("Title",markerTitle);
         userMarker.put("Description", markerDescription);
         userMarker.put("location", markerLoc );
-        userMarker.put("AddedBy", MainActivity.Username);
+        userMarker.put("AddedBy", uploadUsername);
         userMarker.saveInBackground();
 
 

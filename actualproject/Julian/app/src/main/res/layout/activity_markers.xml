@@ -94,6 +94,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:onClick="addNewMarker"
+                        android:baselineAlignBottom="true"
                         app:srcCompat="@android:drawable/ic_input_add" />
                 </fragment>
 

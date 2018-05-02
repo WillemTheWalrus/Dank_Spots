@@ -116,7 +116,7 @@ public class ParseConnect extends Application {
     }
 
 
-    public void getObjects(){
+    public static void getObjects(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Markers");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

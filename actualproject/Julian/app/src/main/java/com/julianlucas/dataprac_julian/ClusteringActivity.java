@@ -23,6 +23,7 @@ package com.julianlucas.dataprac_julian;
         import com.google.android.gms.maps.model.Marker;
         import com.google.maps.android.MarkerManager;
         import com.google.maps.android.clustering.ClusterManager;
+        import com.google.maps.android.clustering.view.ClusterRenderer;
         import com.julianlucas.dataprac_julian.item.MyItem;
         import com.parse.FindCallback;
         import com.parse.ParseAnalytics;
@@ -53,15 +54,24 @@ public class ClusteringActivity extends BaseActivity {
     public static ClusterManager<MyItem> munchiesClusterManager;
     public static ClusterManager<MyItem> plugClusterManager;
 
+    private ClusterRenderer<MyItem> spotClusterRenderer;
+    private  ClusterRenderer<MyItem> munchiesClusterRenderer;
+    private ClusterRenderer<MyItem> plugClusterRenderer;
+
     @Override
     protected void startMap() {
 
         //getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(40.869402, -124.086886), 15));
         MarkerManager markerManager = new MarkerManager(getMap());
 
-        spotClusterManager = new ClusterManager<MyItem>(this, getMap(),markerManager);
-        plugClusterManager = new ClusterManager<MyItem>(this, getMap(),markerManager);
-        munchiesClusterManager = new ClusterManager<MyItem>(this, getMap(),markerManager);
+        spotClusterManager = new ClusterManager<>(this, getMap(),markerManager);
+        plugClusterManager = new ClusterManager<>(this, getMap(),markerManager);
+        munchiesClusterManager = new ClusterManager<>(this, getMap(),markerManager);
+
+        spotClusterRenderer = new ourClusterRenderer(this, getMap(), spotClusterManager);
+        plugClusterRenderer = new ourClusterRenderer(this, getMap(), plugClusterManager);
+        munchiesClusterRenderer = new ourClusterRenderer(this, getMap(), munchiesClusterManager);
+
         getMap().setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
@@ -95,10 +105,11 @@ public class ClusteringActivity extends BaseActivity {
                     //select a random marker that is close by by generating a random index for the
                     // ParseObject list form the callback
                     Random generator = new Random();
-                    int index = generator.nextInt() % 10;
+                    int index = generator.nextInt(10) ;
                     if (index < 0) {
                         index *= -1;
                     }
+                    Log.i("random int", Integer.toString(index));
                     ParseObject currentObject = objects.get(index);
 
                     //grab the type of the selected marker from the server
@@ -163,12 +174,14 @@ public class ClusteringActivity extends BaseActivity {
         {
             for(int i = 0;  i < munchiesMarkers.size(); i++){
                 munchiesMarkers.get(i).setVisible(false);
+                showMunchies = false;
             }
 
         }else{
 
             for(int i = 0;  i < munchiesMarkers.size(); i++){
                 munchiesMarkers.get(i).setVisible(true);
+                showMunchies = true;
             }
         }
         munchiesClusterManager.cluster();
@@ -184,6 +197,7 @@ public class ClusteringActivity extends BaseActivity {
         {
             for(int i = 0;  i < spotMarkers.size(); i++){
                 spotMarkers.get(i).setVisible(false);
+                showSpots = false;
             }
 
         }else{
@@ -203,17 +217,20 @@ public class ClusteringActivity extends BaseActivity {
         {
             for(int i = 0;  i < plugMarkers.size(); i++){
                 plugMarkers.get(i).setVisible(false);
+                showPlugs = false;
             }
 
         }else{
 
             for(int i = 0;  i < plugMarkers.size(); i++){
                plugMarkers.get(i).setVisible(true);
+               showPlugs = true;
             }
         }
     }
 
-    public static void addColor(){
+    /*
+    public void addColor(){
         Collection<Marker> spotCollection = spotClusterManager.getMarkerCollection().getMarkers();
         Collection<Marker> munchiesCollection = munchiesClusterManager.getMarkerCollection().getMarkers();
         Collection<Marker> plugCollection = plugClusterManager.getMarkerCollection().getMarkers();
@@ -232,7 +249,7 @@ public class ClusteringActivity extends BaseActivity {
             plugMarkers.get(i).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         }
     }
-
+*/
     private void readItems() throws JSONException {
 
 
@@ -240,13 +257,13 @@ public class ClusteringActivity extends BaseActivity {
         items = new ItemReader().read(ParseConnect.serverMarkers);
 
         for(int i = 0; i < items.size(); i++){
-            if(items.get(i).getType().equals("munchies")){
+            if(items.get(i).getType().equals("munchies") && items.get(i).getOwner().equals("default")){
                 munchiesClusterManager.addItem(items.get(i));
             }
-            else if(items.get(i).getType().equals("spot")){
+            else if(items.get(i).getType().equals("spot") && items.get(i).getOwner().equals("default")){
                 spotClusterManager.addItem(items.get(i));
             }
-            else if(items.get(i).getType().equals("plug")){
+            else if(items.get(i).getType().equals("plug") && items.get(i).getOwner().equals("default")){
                 plugClusterManager.addItem(items.get(i));
             }
         }
