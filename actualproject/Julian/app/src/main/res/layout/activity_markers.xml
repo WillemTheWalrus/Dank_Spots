@@ -17,26 +17,33 @@
             android:orientation="vertical"
             tools:context=".ClusteringActivity">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <SearchView
-                android:id="@+id/search"
+                <SearchView
+                    android:id="@+id/search"
 
-                android:layout_width = "wrap_content"
-                android:layout_height="wrap_content"
-                android:searchIcon="@drawable/searchicon"
-                android:background="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:searchIcon="@drawable/searchicon"
+                    android:maxWidth="240dp"
 
-                />
+                    />
 
-            <Button
-                android:id="@+id/random"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerHorizontal="true"
-                android:onClick="randomMarker"
-                android:text="Random" />
+                <ImageButton
+                    android:id="@+id/Random"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+
+
+                    android:layout_alignParentTop="true"
+                    android:onClick="randomMarker"
+                    android:src="@drawable/dice"
+                    android:text="Random" />
+            </LinearLayout>
 
             <CheckBox
                 android:id="@+id/plugs"

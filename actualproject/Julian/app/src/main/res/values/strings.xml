@@ -10,4 +10,5 @@
     <string name="match_passwords">The passwords you entered do not match, please try again</string>
     <string name="title_activity_add_marker">Map</string>
     <string name="title_activity_view_user_markers">Map</string>
+
 </resources>
