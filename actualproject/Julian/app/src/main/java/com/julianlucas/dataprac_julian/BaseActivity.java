@@ -103,32 +103,7 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
         }
     }
 
-    public void onMapSearch(View view) {
 
-        EditText ourSearch = findViewById(R.id.search);
-        String location = ourSearch.getText().toString();
-
-        int bestScore = 0;
-        LatLng foundspot = new LatLng(-30, 100);
-        for(int i = 0; i < ParseConnect.serverMarkers.size(); i++){
-            int currentscore = 0;
-
-            String currentTitle = ParseConnect.serverMarkers.get(i).getString("Title");
-            if(ParseConnect.serverMarkers.get(i).getString("AddedBy").equals("default")){
-                currentscore = location.compareToIgnoreCase(currentTitle);
-                if(currentscore > bestScore){
-                    bestScore = currentscore;
-                    ParseGeoPoint loco = ParseConnect.serverMarkers.get(i).getParseGeoPoint("location");
-                    foundspot = new LatLng(loco.getLatitude(), loco.getLongitude());
-                }
-            }
-
-
-        }
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(foundspot, 13.0f));
-
-    }
 
     @Override
     protected void onPause() {
