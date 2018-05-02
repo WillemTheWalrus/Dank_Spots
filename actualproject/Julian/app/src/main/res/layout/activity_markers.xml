@@ -16,6 +16,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             tools:context=".ClusteringActivity">
+
+
+
+
     <!--
             <Button
                 android:id="@+id/colorize"
@@ -26,6 +30,11 @@
                 android:text="Colorize"
                 android:onClick="addColor"/>
     -->
+
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/random"
