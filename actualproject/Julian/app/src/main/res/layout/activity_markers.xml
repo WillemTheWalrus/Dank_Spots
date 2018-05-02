@@ -18,29 +18,22 @@
             tools:context=".ClusteringActivity">
 
 
-
-
-    <!--
-            <Button
-                android:id="@+id/colorize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="Colorize"
-                android:onClick="addColor"/>
-    -->
-
             <SearchView
                 android:id="@+id/search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
+                android:layout_width = "wrap_content"
+                android:layout_height="wrap_content"
+                android:searchIcon="@drawable/searchicon"
+                android:background="@android:color/white"
+
+                />
 
             <Button
                 android:id="@+id/random"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
                 android:layout_centerHorizontal="true"
                 android:onClick="randomMarker"
                 android:text="Random" />

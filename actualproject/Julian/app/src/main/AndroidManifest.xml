@@ -26,7 +26,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,7 +57,8 @@
             android:label="@string/title_activity_add_marker" />
         <activity
             android:name=".viewUserMarkers"
-            android:label="@string/title_activity_view_user_markers"></activity>
+            android:label="@string/title_activity_view_user_markers"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

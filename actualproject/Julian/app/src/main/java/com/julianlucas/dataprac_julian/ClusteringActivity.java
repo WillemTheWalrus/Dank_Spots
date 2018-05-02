@@ -15,6 +15,7 @@ package com.julianlucas.dataprac_julian;
         import android.widget.CheckBox;
         import android.widget.Toast;
 
+
         import com.google.android.gms.maps.CameraUpdateFactory;
         import com.google.android.gms.maps.GoogleMap;
         import com.google.android.gms.maps.model.BitmapDescriptor;

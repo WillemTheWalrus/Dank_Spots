@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,16 +30,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
+import com.parse.ParseGeoPoint;
 
 import java.util.Collection;
 
-public abstract class BaseActivity extends FragmentActivity implements OnMapReadyCallback, LocationProvider.LocationCallback, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
+public abstract class BaseActivity extends FragmentActivity implements  OnMapReadyCallback, LocationProvider.LocationCallback, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
     public static GoogleMap mMap;
     private LocationProvider mLocationProvider;
     public final int REQUEST_PERMISSIONS_ACCESS = 69;
     public static boolean showMunchies;
     public static boolean showSpots;
     public static boolean showPlugs;
+    public SearchView locationSearch;
+    public ourSearchQuery ourQuery;
 
 
     protected int getLayoutId() {
@@ -52,10 +56,17 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
         ParseConnect.getObjects();
         setUpMap();
 
+
+        ourQuery = new ourSearchQuery();
         showMunchies = true;
         showPlugs = true;
         showSpots = true;
+         locationSearch = findViewById(R.id.search);
+        locationSearch.setSubmitButtonEnabled(true);
+        locationSearch.setQueryRefinementEnabled(true);
 
+
+        locationSearch.setOnQueryTextListener(ourQuery);
         final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -93,22 +104,30 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
     }
 
     public void onMapSearch(View view) {
-        EditText locationSearch = findViewById(R.id.search);
-        String location = locationSearch.getText().toString();
-        List<Address>addressList = null;
 
-        if (location != null || !location.equals("")) {
-            Geocoder geocoder = new Geocoder(this);
-            try {
-                addressList = geocoder.getFromLocationName(location, 1);
+        EditText ourSearch = findViewById(R.id.search);
+        String location = ourSearch.getText().toString();
 
-            } catch (IOException e) {
-                e.printStackTrace();
+        int bestScore = 0;
+        LatLng foundspot = new LatLng(-30, 100);
+        for(int i = 0; i < ParseConnect.serverMarkers.size(); i++){
+            int currentscore = 0;
+
+            String currentTitle = ParseConnect.serverMarkers.get(i).getString("Title");
+            if(ParseConnect.serverMarkers.get(i).getString("AddedBy").equals("default")){
+                currentscore = location.compareToIgnoreCase(currentTitle);
+                if(currentscore > bestScore){
+                    bestScore = currentscore;
+                    ParseGeoPoint loco = ParseConnect.serverMarkers.get(i).getParseGeoPoint("location");
+                    foundspot = new LatLng(loco.getLatitude(), loco.getLongitude());
+                }
             }
-            Address address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
         }
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(foundspot, 13.0f));
+
     }
 
     @Override
