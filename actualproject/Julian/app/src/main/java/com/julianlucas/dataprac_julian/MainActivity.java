@@ -3,6 +3,8 @@ package com.julianlucas.dataprac_julian;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -106,12 +108,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this, ClusteringActivity.class);
-        startActivity(intent);
+        if(isNetworkAvailable()) {
+            Intent intent = new Intent(this, ClusteringActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "Need internet connection to start", Toast.LENGTH_LONG);
+        }
     }
 }
 
