@@ -23,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.Collection;
 
@@ -142,6 +143,8 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
                         mMap.setOnMyLocationClickListener(this);
                         startMap();
                         mLocationProvider.connect();
+                        ClusteringActivity.addColor();
+
                     }catch(SecurityException e){
                         Log.i("exception", e.toString());
                     }
@@ -172,6 +175,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnMapRead
         } else {
 
             mLocationProvider = new LocationProvider(this, this);
+
         }
     }
 

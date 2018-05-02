@@ -24,7 +24,12 @@ package com.julianlucas.dataprac_julian;
         import com.google.maps.android.MarkerManager;
         import com.google.maps.android.clustering.ClusterManager;
         import com.julianlucas.dataprac_julian.item.MyItem;
+        import com.parse.FindCallback;
         import com.parse.ParseAnalytics;
+        import com.parse.ParseException;
+        import com.parse.ParseGeoPoint;
+        import com.parse.ParseObject;
+        import com.parse.ParseQuery;
 
         import org.json.JSONException;
 
@@ -33,6 +38,8 @@ package com.julianlucas.dataprac_julian;
         import java.util.ArrayList;
         import java.util.List;
         import java.util.Collection;
+        import java.util.Random;
+        import static com.julianlucas.dataprac_julian.ParseConnect.*;
 
 
 /**
@@ -74,6 +81,78 @@ public class ClusteringActivity extends BaseActivity {
 
     }
 
+    public void randomMarker(View view){
+        ParseGeoPoint userLocatoin = new ParseGeoPoint(LocationProvider.loc.getLatitude(), LocationProvider.loc.getLongitude());
+
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Markers");
+        query.whereNear("location", userLocatoin);
+        query.whereEqualTo("AddedBy", "default");
+        query.setLimit(10);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (objects.size() > 0) {
+                    //select a random marker that is close by by generating a random index for the
+                    // ParseObject list form the callback
+                    Random generator = new Random();
+                    int index = generator.nextInt() % 10;
+                    if (index < 0) {
+                        index *= -1;
+                    }
+                    ParseObject currentObject = objects.get(index);
+
+                    //grab the type of the selected marker from the server
+                    String type = (String) currentObject.get("Type");
+                    ParseGeoPoint selectedGeoPoint = (ParseGeoPoint) currentObject.get("location");
+                    LatLng markerLoc = new LatLng(selectedGeoPoint.getLatitude(), selectedGeoPoint.getLongitude());
+
+                    //zoom the camera in so that all markers are displayed and can be grabbed from the cluster manager
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLoc, 22.0f));
+
+                    if(type.equals("munchies")){
+                        munchiesClusterManager.cluster();
+                        Collection<Marker> munchiesCollection = munchiesClusterManager.getMarkerCollection().getMarkers();
+                        ArrayList<Marker> munchiesMarkers = new ArrayList<>(munchiesCollection);
+                        for (int i = 0; i < munchiesMarkers.size(); i++){
+
+                            if(munchiesMarkers.get(i).getPosition().latitude == markerLoc.latitude
+                                    && munchiesMarkers.get(i).getPosition().longitude == markerLoc.longitude){
+                                munchiesMarkers.get(i).showInfoWindow();
+                            }
+                        }
+                    }
+                    else if(type.equals("spot")){
+                        spotClusterManager.cluster();
+                        Collection<Marker> spotCollection = spotClusterManager.getMarkerCollection().getMarkers();
+                        ArrayList<Marker> spotMarkers = new ArrayList<>(spotCollection);
+                        for(int i = 0; i < spotMarkers.size(); i++){
+                            if(spotMarkers.get(i).getPosition().latitude == markerLoc.latitude
+                                    && spotMarkers.get(i).getPosition().longitude == markerLoc.longitude){
+                                spotMarkers.get(i).showInfoWindow();
+                            }
+                        }
+                    }
+                    else if(type.equals("plug")){
+                        plugClusterManager.cluster();
+                        Collection<Marker> plugCollection = plugClusterManager.getMarkerCollection().getMarkers();
+                        ArrayList<Marker> plugMarkers = new ArrayList<>(plugCollection);
+
+                        for(int i = 0; i < serverMarkers.size(); i++){
+
+                            if(plugMarkers.get(i).getPosition().latitude == markerLoc.latitude
+                                    && plugMarkers.get(i).getPosition().longitude == markerLoc.latitude){
+                                plugMarkers.get(i).showInfoWindow();
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        });
+
+    }
+
     public  void filterMunchies(View view){
 
         Collection<Marker> munchiesCollection = munchiesClusterManager.getMarkerCollection().getMarkers();
@@ -92,6 +171,7 @@ public class ClusteringActivity extends BaseActivity {
                 munchiesMarkers.get(i).setVisible(true);
             }
         }
+        munchiesClusterManager.cluster();
 
     }
 
@@ -133,7 +213,7 @@ public class ClusteringActivity extends BaseActivity {
         }
     }
 
-    public void addColor(View view){
+    public static void addColor(){
         Collection<Marker> spotCollection = spotClusterManager.getMarkerCollection().getMarkers();
         Collection<Marker> munchiesCollection = munchiesClusterManager.getMarkerCollection().getMarkers();
         Collection<Marker> plugCollection = plugClusterManager.getMarkerCollection().getMarkers();

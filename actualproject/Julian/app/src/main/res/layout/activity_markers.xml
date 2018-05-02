@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     tools:openDrawer="start">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,6 +26,16 @@
                 android:text="Colorize"
                 android:onClick="addColor"/>
     -->
+
+            <Button
+                android:id="@+id/random"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:onClick="randomMarker"
+                android:text="Random" />
+
             <CheckBox
                 android:id="@+id/plugs"
                 android:layout_width="wrap_content"
@@ -61,7 +73,6 @@
                 android:textColor="@android:color/white" />
 
 
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -90,6 +101,7 @@
 
         </RelativeLayout>
     </FrameLayout>
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
