@@ -26,8 +26,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,7 +58,11 @@
         <activity
             android:name=".viewUserMarkers"
             android:label="@string/title_activity_view_user_markers"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".buddyCenterHome"
+            android:label="@string/title_activity_buddy_center_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

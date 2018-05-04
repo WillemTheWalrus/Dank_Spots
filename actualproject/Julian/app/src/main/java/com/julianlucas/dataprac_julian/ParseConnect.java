@@ -16,6 +16,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.julianlucas.dataprac_julian.MainActivity.Username;
@@ -63,6 +64,8 @@ public class ParseConnect extends Application {
         getObjects();
         getAccounts();
 
+
+
     }
 
     public  static void upLoadLocation(Location location){
@@ -105,13 +108,17 @@ public class ParseConnect extends Application {
                     serverAccount = objects;
                     for(int i = 0; i < objects.size(); i++){
                         Log.i("Accountfind", objects.get(i).getClassName());
+
                     }
                 }
                 else{
                     Log.i("error", e.toString());
                 }
+
             }
         });
+
+
 
     }
 

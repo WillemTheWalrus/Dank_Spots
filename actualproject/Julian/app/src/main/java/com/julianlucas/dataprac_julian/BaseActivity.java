@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.SearchView;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,7 +31,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+
+import org.xml.sax.helpers.ParserFactory;
 
 import java.util.Collection;
 
@@ -56,6 +61,19 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
         ParseConnect.getObjects();
         setUpMap();
 
+        /*
+        for(int i = 0; i < ParseConnect.serverAccount.size(); i++){
+            ParseObject currObject = ParseConnect.serverAccount.get(i);
+            if(currObject.getString("Username").equals("wmd42")){
+                try {
+                    currObject.save();
+                }catch (ParseException e){
+                    Log.i("error", e.toString());
+                }
+                currObject.addAllUnique("friends", Arrays.asList("Julian","ronron420","norah"));
+            }
+        }
+        */
 
         ourQuery = new ourSearchQuery();
         showMunchies = true;
@@ -81,6 +99,11 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
                             startActivity(intent);
                             finish();
 
+                        }
+                        else if(item.getItemId() == R.id.homies){
+                            Intent intent = new Intent(getBaseContext(), buddyCenterHome.class);
+                            startActivity(intent);
+                            finish();
                         }
                         return true;
                     }
