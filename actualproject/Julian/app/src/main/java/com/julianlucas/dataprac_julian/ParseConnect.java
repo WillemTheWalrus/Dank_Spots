@@ -97,26 +97,15 @@ public class ParseConnect extends Application {
         newAccount.saveInBackground();
     }
 
-    public void getAccounts() {
+    public static void getAccounts() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Account");
 
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
+        try{
+            serverAccount = query.find();
+        }catch (ParseException e){
+            Log.i("error", e.toString());
+        }
 
-                if(e == null && objects!= null){
-                    serverAccount = objects;
-                    for(int i = 0; i < objects.size(); i++){
-                        Log.i("Accountfind", objects.get(i).getClassName());
-
-                    }
-                }
-                else{
-                    Log.i("error", e.toString());
-                }
-
-            }
-        });
 
 
 

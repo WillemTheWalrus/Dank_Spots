@@ -62,7 +62,11 @@
         <activity
             android:name=".buddyCenterHome"
             android:label="@string/title_activity_buddy_center_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".sendMarker"
+            android:label="@string/title_activity_send_marker" />
+        <activity android:name=".addFriend"></activity>
     </application>
 
 </manifest>
