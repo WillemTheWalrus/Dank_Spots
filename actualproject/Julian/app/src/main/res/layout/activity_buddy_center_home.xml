@@ -32,20 +32,22 @@
                 app:title="Buddy Center" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/markerInbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="checkInbox"
                 app:layout_anchor="@+id/app_bar"
                 app:layout_anchorGravity="left|center"
                 app:srcCompat="@android:drawable/ic_dialog_email" />
+
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <include
+        android:id="@+id/include"
         layout="@layout/content_buddy_center_home"
-        android:layout_height="538dp"
-        />
+        android:layout_height="538dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton2"

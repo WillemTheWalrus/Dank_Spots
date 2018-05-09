@@ -95,9 +95,28 @@ public class ClusteringActivity extends BaseActivity {
     public void randomMarker(View view){
         ParseGeoPoint userLocatoin = new ParseGeoPoint(LocationProvider.loc.getLatitude(), LocationProvider.loc.getLongitude());
 
+
+        if(!showMunchies && !showSpots && !showPlugs){
+            Toast.makeText(this, "at least one checkbox must be selected", Toast.LENGTH_LONG);
+            return;
+        }
+
+
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Markers");
         query.whereNear("location", userLocatoin);
         query.whereEqualTo("AddedBy", "default");
+
+        if(!showPlugs){
+            query.whereNotEqualTo("Type", "plug");
+        }
+        if(!showSpots){
+            query.whereNotEqualTo("Type", "spot");
+
+        }
+        if(!showMunchies){
+            query.whereNotEqualTo("Type", "plug");
+        }
+
         query.setLimit(10);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

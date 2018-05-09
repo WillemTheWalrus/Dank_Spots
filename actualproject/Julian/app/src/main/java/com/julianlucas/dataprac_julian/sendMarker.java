@@ -2,17 +2,30 @@ package com.julianlucas.dataprac_julian;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
 
 public class sendMarker extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private String selectedMarkerTitle;
+    private ParseObject selectedMarker;
+    private String receiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +35,9 @@ public class sendMarker extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        receiver = getIntent().getStringExtra("receiver");
+
+
     }
 
 
@@ -38,9 +54,57 @@ public class sendMarker extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        GoogleMap.OnMarkerClickListener clickListener = new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                selectedMarkerTitle = marker.getTitle();
+                return false;
+            }
+        };
+        mMap.setOnMarkerClickListener(clickListener);
+        double latitude = LocationProvider.loc.getLatitude();
+        double longitude = LocationProvider.loc.getLongitude();
+
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng userLocation = new LatLng(latitude, longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 13f));
+        addMarker.putUserMarkers(mMap);
+    }
+
+    public void sendToFriend(View view){
+
+        for(int i = 0; i < ParseConnect.serverAccount.size(); i++){
+
+            //grab the parse object representing the account that is to receive the marker
+            if(ParseConnect.serverAccount.get(i).get("Username").equals(receiver)){
+
+                //check to see if the geopoint inbox array has been initialized
+                if(ParseConnect.serverAccount.get(i).get("inbox") == null) {
+
+                    //create a new Marker array to upload into the inbox column
+                    ArrayList<ParseObject> inboxMarkers = new ArrayList<>();
+
+
+                    for (int j = 0; j < ParseConnect.serverMarkers.size(); j++) {
+                        if (ParseConnect.serverMarkers.get(j).getString("Title").equals(selectedMarkerTitle)) {
+                            selectedMarker = ParseConnect.serverMarkers.get(j);
+
+                        }
+                    }
+
+                    Log.i("selectedMarker", (String) selectedMarker.get("Title"));
+                    inboxMarkers.add(selectedMarker);
+                    ParseConnect.serverAccount.get(i).put("inbox", inboxMarkers);
+                    try {
+                        ParseConnect.serverAccount.get(i).save();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+
+        }
     }
 }

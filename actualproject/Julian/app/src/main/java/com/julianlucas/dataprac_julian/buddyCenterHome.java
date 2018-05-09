@@ -27,7 +27,7 @@ public class buddyCenterHome extends AppCompatActivity {
 
     public List friendsList;
     public LinearLayout linearLayout;
-    public static String sendTo;
+
 
 
 
@@ -43,6 +43,7 @@ public class buddyCenterHome extends AppCompatActivity {
         toolbar.setTitle("Buddy Center");
 
 
+
         for(int i = 0; i < ParseConnect.serverAccount.size(); i++){
             ParseObject currObject = ParseConnect.serverAccount.get(i);
             if(currObject.getString("Username").equals(MainActivity.Username)){
@@ -52,85 +53,97 @@ public class buddyCenterHome extends AppCompatActivity {
         }
 
 
-
-        int nextid = R.id.scrollLinear ;
-        for(int i = 0; i < friendsList.size(); i++) {
-            LinearLayout vertical = new LinearLayout(this);
-            TextView friendName = new TextView(this);
-            Button sendMarker = new Button(this);
-            Button removeBuddy = new Button(this);
-
-
-
-            String currentFriend = (String)friendsList.get(i);
-            sendMarker.setText("Send Marker");
-            sendMarker.setTextSize(12f);
-            removeBuddy.setText("Remove");
-            removeBuddy.setTextSize(12f);
-            friendName.setText(currentFriend);
-            friendName.setTextColor(Color.WHITE);
+        if(friendsList != null){
+            int nextid = R.id.scrollLinear ;
+            for(int i = 0; i < friendsList.size(); i++) {
+                LinearLayout vertical = new LinearLayout(this);
+                TextView friendName = new TextView(this);
+                Button sendMarker = new Button(this);
+                Button removeBuddy = new Button(this);
 
 
-
-            nextid++;
-            vertical.setId(nextid);
-            nextid++;
-            sendMarker.setId(nextid);
-            nextid++;
-            friendName.setId(nextid);
-            nextid++;
-            removeBuddy.setId(nextid);
-
-            final int sendId = (int)sendMarker.getId()+1;
-            final int removeId = (int)removeBuddy.getId()-1;
-
-            sendMarker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView userName = (TextView)findViewById(sendId);
-                    sendMarker(userName.getText().toString());
-
-                }
-            });
-            removeBuddy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TextView userName = findViewById(removeId);
-                    removeFriend(userName.getText().toString());
-                }
-            });
+                String currentFriend = (String) friendsList.get(i);
+                sendMarker.setText("Send Marker");
+                sendMarker.setTextSize(12f);
+                removeBuddy.setText("Remove");
+                removeBuddy.setTextSize(12f);
+                friendName.setText(currentFriend);
+                friendName.setTextColor(Color.WHITE);
 
 
-            vertical.addView(friendName);
-            vertical.addView(sendMarker);
-            vertical.addView(removeBuddy);
+                nextid++;
+                vertical.setId(nextid);
+                nextid++;
+                sendMarker.setId(nextid);
+                nextid++;
+                friendName.setId(nextid);
+                nextid++;
+                removeBuddy.setId(nextid);
 
-            linearLayout.addView(vertical);
+                final int sendId = (int) sendMarker.getId() + 1;
+                final int removeId = (int) removeBuddy.getId() - 1;
 
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int linearLayoutWidth = displayMetrics.widthPixels -48;
+                sendMarker.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView userName = (TextView) findViewById(sendId);
+                        sendMarker(userName.getText().toString());
 
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)friendName.getLayoutParams();
-            params.width = linearLayoutWidth/3;
-            friendName.setLayoutParams(params);
-            params = (LinearLayout.LayoutParams)sendMarker.getLayoutParams();
-            params.width = linearLayoutWidth/3;
-            sendMarker.setLayoutParams(params);
-            //params = (LinearLayout.LayoutParams)removeBuddy.getLayoutParams();
-            //params.width = linearLayoutWidth/3;
-            //removeBuddy.setLayoutParams(params);
+                    }
+                });
+                removeBuddy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView userName = findViewById(removeId);
+                        removeFriend(userName.getText().toString());
+                    }
+                });
 
+
+                vertical.addView(friendName);
+                vertical.addView(sendMarker);
+                vertical.addView(removeBuddy);
+
+                linearLayout.addView(vertical);
+
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int linearLayoutWidth = displayMetrics.widthPixels - 48;
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) friendName.getLayoutParams();
+                params.width = linearLayoutWidth / 3;
+                friendName.setLayoutParams(params);
+                params = (LinearLayout.LayoutParams) sendMarker.getLayoutParams();
+                params.width = linearLayoutWidth / 3;
+                sendMarker.setLayoutParams(params);
+                //params = (LinearLayout.LayoutParams)removeBuddy.getLayoutParams();
+                //params.width = linearLayoutWidth/3;
+                //removeBuddy.setLayoutParams(params);
+            }
+
+        }
+        else{
+            TextView nofriends = (TextView)findViewById(R.id.friendless);
+            nofriends.setVisibility(View.VISIBLE);
         }
     }
 
+
+    /**
+     * Starts the send Marker activity
+     */
     public void sendMarker(String receiver){
-        sendTo = receiver;
+
         Intent intent = new Intent(this, sendMarker.class);
+        intent.putExtra("receiver", receiver);
         startActivity(intent);
     }
 
 
+    /**
+     * Removes the friend from the user's friendslist, updates their parse account object and
+     * restarts the activity
+     */
     public void removeFriend(String removee){
 
         for(int i = 0; i < ParseConnect.serverAccount.size(); i++){
@@ -146,5 +159,8 @@ public class buddyCenterHome extends AppCompatActivity {
         }
     }
 
+    public void checkInbox(View view){
+
+    }
 
 }

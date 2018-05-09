@@ -11,6 +11,7 @@
     <string name="title_activity_add_marker">Map</string>
     <string name="title_activity_view_user_markers">Map</string>
     <string name="title_activity_buddy_center_home">Buddy Center</string>
+    <string name="no_friends">It appears as though you don\'t have any friends yet. \nPlease press the + button to add some.</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

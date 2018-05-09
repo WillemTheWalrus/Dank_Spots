@@ -61,30 +61,24 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
         ParseConnect.getObjects();
         setUpMap();
 
-        /*
-        for(int i = 0; i < ParseConnect.serverAccount.size(); i++){
-            ParseObject currObject = ParseConnect.serverAccount.get(i);
-            if(currObject.getString("Username").equals("wmd42")){
-                try {
-                    currObject.save();
-                }catch (ParseException e){
-                    Log.i("error", e.toString());
-                }
-                currObject.addAllUnique("friends", Arrays.asList("Julian","ronron420","norah"));
-            }
-        }
-        */
 
+        //create a new onTextQueryListener object
         ourQuery = new ourSearchQuery();
+
+        //initialize booleans for displaying spots(changed by checkboxes)
         showMunchies = true;
         showPlugs = true;
         showSpots = true;
-         locationSearch = findViewById(R.id.search);
+
+        //initialize search bar functionality
+        locationSearch = findViewById(R.id.search);
         locationSearch.setSubmitButtonEnabled(true);
         locationSearch.setQueryRefinementEnabled(true);
 
-
+        //assign our onTextQueryListener to handle the search event for our searchbar
         locationSearch.setOnQueryTextListener(ourQuery);
+
+        //initialize our drawerer layout
         final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -95,12 +89,16 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
                         if (item.getItemId() == R.id.mySpots) {
+                            //launches an activity that displays a map with all of the user's personal markers
                             Intent intent = new Intent(getBaseContext(), viewUserMarkers.class);
                             startActivity(intent);
                             finish();
 
                         }
                         else if(item.getItemId() == R.id.homies){
+
+                            //Launches the buddy center activity, an activity that deals with sending
+                            // markers and friendlist management
                             Intent intent = new Intent(getBaseContext(), buddyCenterHome.class);
                             startActivity(intent);
                             finish();
@@ -138,6 +136,9 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
         }
     }
 
+    /*
+    Updates the UI and parse server location information when a user moves
+     */
     public void handleNewLocation(Location location) {
 
         double currentLatitude = location.getLatitude();
@@ -149,6 +150,7 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
         mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f));
 
         mMap.setMaxZoomPreference(23.0f);
+        ParseConnect.upLoadLocation(location);
     }
 
     @Override
@@ -175,6 +177,9 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
     }
 
     @Override
+    /*
+    Handles the result of location permissions request
+     */
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -212,6 +217,10 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
 
 
 
+    /*
+    Checks to see if the user has granted location permissions.
+     If the permissions have not been franted, then they are requested
+     */
     private void setUpMap() {
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -228,10 +237,11 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
         }
     }
 
-    /**
-     * Run the demo-specific code.
+    /*
+      This is implemented in ClusteringActivity.java
      */
     protected abstract void startMap();
+
 
     protected GoogleMap getMap() {
         return mMap;
