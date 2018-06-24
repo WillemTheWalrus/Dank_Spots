@@ -178,6 +178,8 @@ public class ClusteringActivity extends BaseActivity {
                         }
                     }
                 }
+                else {
+                }
             }
 
         });

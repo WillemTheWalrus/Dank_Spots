@@ -66,7 +66,15 @@
         <activity
             android:name=".sendMarker"
             android:label="@string/title_activity_send_marker" />
-        <activity android:name=".addFriend"></activity>
+        <activity android:name=".addFriend" />
+        <activity android:name=".view_inbox" />
+        <activity
+            android:name=".viewInbox"
+            android:label="@string/title_activity_view_inbox"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".viewReceivedMarker"
+            android:label="@string/title_activity_view_received_marker" />
     </application>
 
 </manifest>

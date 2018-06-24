@@ -24,6 +24,7 @@ import com.google.maps.android.MarkerManager;
 import com.google.maps.android.clustering.ClusterManager;
 import com.julianlucas.dataprac_julian.item.MyItem;
 import com.parse.ParseAnalytics;
+import com.parse.ParseObject;
 
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +37,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public static String Username;
     public static String Password;
+    public static ParseObject userAccountObject;
+
 
     Button b1, b2;
     EditText ed1, ed2;
@@ -64,6 +67,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void submitButton(View v) {
         Username = ed1.getText().toString().trim();
         Password = ed2.getText().toString().trim();
+        int iterator = 0;
 
         String serverUsername = null;
         String serverPassword = null;
@@ -73,6 +77,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             if (serverAccount.get(i).getString("Username").equals(Username)) {
                 serverUsername = serverAccount.get(i).getString("Username");
                 serverPassword = serverAccount.get(i).getString("Password");
+                iterator = i;
 
             }
         }
@@ -83,6 +88,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Toast.makeText(this, getString(R.string.wrong_password), Toast.LENGTH_LONG).show();
             }
             else{
+
+                userAccountObject = serverAccount.get(iterator);
 
                 View view = this.getCurrentFocus();
                 if (view != null) {

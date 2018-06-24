@@ -1,9 +1,12 @@
 package com.julianlucas.dataprac_julian;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +28,7 @@ public class sendMarker extends FragmentActivity implements OnMapReadyCallback {
     private String selectedMarkerTitle;
     private ParseObject selectedMarker;
     private String receiver;
+    private Button sender;
 
 
     @Override
@@ -36,7 +40,7 @@ public class sendMarker extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         receiver = getIntent().getStringExtra("receiver");
-
+        sender = findViewById(R.id.send);
 
     }
 
@@ -58,14 +62,16 @@ public class sendMarker extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 selectedMarkerTitle = marker.getTitle();
+                sender.setClickable(true);
                 return false;
             }
         };
+
         mMap.setOnMarkerClickListener(clickListener);
         double latitude = LocationProvider.loc.getLatitude();
         double longitude = LocationProvider.loc.getLongitude();
 
-        // Add a marker in Sydney and move the camera
+        // center camera on user
         LatLng userLocation = new LatLng(latitude, longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 13f));
         addMarker.putUserMarkers(mMap);
@@ -77,32 +83,57 @@ public class sendMarker extends FragmentActivity implements OnMapReadyCallback {
 
             //grab the parse object representing the account that is to receive the marker
             if(ParseConnect.serverAccount.get(i).get("Username").equals(receiver)){
-
+                ArrayList<ParseObject> inboxMarkers;
                 //check to see if the geopoint inbox array has been initialized
                 if(ParseConnect.serverAccount.get(i).get("inbox") == null) {
 
                     //create a new Marker array to upload into the inbox column
-                    ArrayList<ParseObject> inboxMarkers = new ArrayList<>();
+                    inboxMarkers = new ArrayList<>();
+                }
+                else{
+                    inboxMarkers = (ArrayList)ParseConnect.serverAccount.get(i).get("inbox");
+                }
 
-
-                    for (int j = 0; j < ParseConnect.serverMarkers.size(); j++) {
-                        if (ParseConnect.serverMarkers.get(j).getString("Title").equals(selectedMarkerTitle)) {
+                for (int j = 0; j < ParseConnect.serverMarkers.size(); j++) {
+                    if (ParseConnect.serverMarkers.get(j).getString("Title").equals(selectedMarkerTitle)) {
                             selectedMarker = ParseConnect.serverMarkers.get(j);
 
+                    }
+                }
+
+                Log.i("selectedMarker", (String) selectedMarker.get("Title"));
+
+                boolean duplicateMarker = false;
+
+                //check to see if the user already has this marker in their inbox
+                if(inboxMarkers.size() > 0){
+                    for(int j = 0; j < inboxMarkers.size(); j++){
+                        if(selectedMarker.getObjectId().equals(inboxMarkers.get(i).getObjectId())){
+                            duplicateMarker = true;
                         }
                     }
+                }
+                if(!duplicateMarker) {
 
-                    Log.i("selectedMarker", (String) selectedMarker.get("Title"));
                     inboxMarkers.add(selectedMarker);
                     ParseConnect.serverAccount.get(i).put("inbox", inboxMarkers);
+
+
                     try {
                         ParseConnect.serverAccount.get(i).save();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
-
+                    Intent intent = new Intent(this, buddyCenterHome.class);
+                    startActivity(intent);
                 }
+                else {
+                    Toast.makeText(this, "They already have this marker in their inbox, please select a different one", Toast.LENGTH_SHORT).show();
+                }
+
+
+
             }
 
         }

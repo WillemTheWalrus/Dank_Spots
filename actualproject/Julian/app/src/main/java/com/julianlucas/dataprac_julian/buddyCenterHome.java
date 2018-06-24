@@ -160,6 +160,8 @@ public class buddyCenterHome extends AppCompatActivity {
     }
 
     public void checkInbox(View view){
+        Intent intent = new Intent(this, viewInbox.class);
+        startActivity(intent);
 
     }
 
