@@ -79,6 +79,7 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
         locationSearch.setOnQueryTextListener(ourQuery);
 
         //initialize our drawerer layout
+        /**
         final DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -107,9 +108,10 @@ public abstract class BaseActivity extends FragmentActivity implements  OnMapRea
                     }
                 }
         );
-
+         **/
 
     }
+
 
     @Override
     protected void onResume() {

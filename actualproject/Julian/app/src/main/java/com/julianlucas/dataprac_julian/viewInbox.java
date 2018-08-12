@@ -44,7 +44,7 @@ public class viewInbox extends AppCompatActivity {
         horizontal = new LinearLayout(this);
        receivedMarkers = MainActivity.userAccountObject.getList("inbox");
 
-       
+
 
 
        if(receivedMarkers == null){
