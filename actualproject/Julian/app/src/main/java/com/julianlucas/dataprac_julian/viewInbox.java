@@ -44,11 +44,10 @@ public class viewInbox extends AppCompatActivity {
         horizontal = new LinearLayout(this);
        receivedMarkers = MainActivity.userAccountObject.getList("inbox");
 
-       Log.i("inbox size", Integer.toString(receivedMarkers.size()));
-       Log.i("inbox first item", receivedMarkers.get(0).toString());
+       
 
 
-       if(receivedMarkers.get(0).toString().equals("null")){
+       if(receivedMarkers == null){
            TextView emptyBox = new TextView(this);
            emptyBox.setText("Your inbox is empty");
            emptyBox.setTextSize(12f);
@@ -67,7 +66,7 @@ public class viewInbox extends AppCompatActivity {
                    deleter.setText("Delete");
                    TextView markerOwner = new TextView(this);
                    final ParseObject currentMarkerPointer = (ParseObject) receivedMarkers.get(i);
-                   
+
 
 
                    ParseQuery query = new ParseQuery("Markers");

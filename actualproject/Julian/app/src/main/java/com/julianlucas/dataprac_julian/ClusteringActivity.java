@@ -90,7 +90,11 @@ public class ClusteringActivity extends BaseActivity {
             Toast.makeText(this, "Problem reading list of markers.", Toast.LENGTH_LONG).show();
         }
 
+
+
     }
+
+
 
     public void randomMarker(View view){
         ParseGeoPoint userLocatoin = new ParseGeoPoint(LocationProvider.loc.getLatitude(), LocationProvider.loc.getLongitude());
