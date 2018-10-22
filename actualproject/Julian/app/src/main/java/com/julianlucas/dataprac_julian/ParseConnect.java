@@ -47,7 +47,7 @@ public class ParseConnect extends Application {
         Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
                 .applicationId("b74932ea19aed2ce0cebc0a4bc4e055eadc1220d")
                 .clientKey("8e1a262af23301c2db72566111bd7ce643868c4f")
-                .server("http://52.53.128.162:80/parse/")
+                .server("http://54.215.209.84:80/parse/")
                 .build()
         );
 
